@@ -24,7 +24,7 @@
 const STICKERS = [
 
   // ── ANIME ────────────────────────────────────────────────────
-  { id: 'AN-001', name: 'Gojo Satoru',      category: 'anime',  emoji: '🔵', isNew: true  },
+  { id: 'AN-001', name: 'zineb hmara',      category: 'anime',  emoji: '🔵', isNew: true  },
   { id: 'AN-002', name: 'Naruto Uzumaki',   category: 'anime',  emoji: '🦊'               },
   { id: 'AN-003', name: 'Monkey D. Luffy',  category: 'anime',  emoji: '🔴'               },
   { id: 'AN-004', name: 'killua',   category: 'anime', IMAGE'images/gojo.png'  emoji: '🌊', isNew: true  },
