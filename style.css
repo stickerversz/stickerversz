@@ -5,20 +5,34 @@
 
 /* ─── Reset & Base ─── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; font-size: 16px; -webkit-tap-highlight-color: transparent; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   background: var(--bg);
   color: var(--text-1);
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
-button { cursor: pointer; border: none; background: none; font-family: inherit; }
+button {
+  cursor: pointer; border: none; background: none; font-family: inherit;
+  touch-action: manipulation;
+  -webkit-appearance: none;
+}
 ul, ol { list-style: none; }
-input, select { font-family: inherit; }
+input, select { font-family: inherit; font-size: 1rem; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
 
 /* ─── Design Tokens ─── */
@@ -176,6 +190,8 @@ input, select { font-family: inherit; }
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
   height: var(--nav-h);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
   background: rgba(9, 9, 11, 0.8);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
@@ -491,6 +507,7 @@ input, select { font-family: inherit; }
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex; align-items: center;
   padding-top: var(--nav-h);
   overflow: hidden;
@@ -871,6 +888,9 @@ input, select { font-family: inherit; }
   transform: translateY(100%);
   transition: transform 0.35s var(--ease);
   padding: 12px 0;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
 }
 .order-bar.open { transform: none; }
 
@@ -1144,4 +1164,61 @@ body.bar-open .float-ig { bottom: calc(24px + 64px); }
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ================================================================
+   CROSS-BROWSER / ANDROID / WINDOWS COMPATIBILITY
+   ================================================================ */
+
+/* Windows custom scrollbar (thin, matches brand) */
+* { scrollbar-width: thin; scrollbar-color: var(--surface-3) transparent; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-3); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* Backdrop-filter fallback for older Android WebViews */
+@supports not (backdrop-filter: blur(1px)) {
+  .nav          { background: rgba(9, 9, 11, 0.97) !important; }
+  .search-overlay { background: rgba(9, 9, 11, 0.96) !important; }
+  .mobile-menu  { background: rgba(9, 9, 11, 0.99) !important; }
+  .order-bar    { background: rgba(9, 9, 11, 0.99) !important; }
+  .sticker-card { background: var(--surface) !important; }
+  [data-theme="light"] .nav          { background: rgba(244,244,248,0.98) !important; }
+  [data-theme="light"] .search-overlay { background: rgba(244,244,248,0.98) !important; }
+  [data-theme="light"] .mobile-menu  { background: rgba(244,244,248,1) !important; }
+  [data-theme="light"] .order-bar    { background: rgba(244,244,248,1) !important; }
+}
+
+/* Touch-device hover override — prevents "sticky hover" on Android/touch screens */
+@media (hover: none) and (pointer: coarse) {
+  .sticker-card:hover { transform: none; box-shadow: none; border-color: var(--border); }
+  .contact-card:hover { transform: none; border-color: var(--border); }
+  .btn:hover { transform: none; box-shadow: none; }
+  .filter-btn:hover { background: var(--surface-2); border-color: var(--border); color: var(--text-2); }
+  .filter-btn.active:hover { background: var(--accent-glow2); border-color: var(--accent); color: var(--accent-2); }
+  .footer-logo-link:hover .footer-logo-img { transform: none; }
+  .float-ig:hover { transform: translateY(-3px) !important; }
+  .nav-link:hover { color: var(--text-2); }
+  .footer-links-col a:hover { color: var(--text-2); }
+}
+
+/* Ensure all interactive elements meet 44×44px minimum touch target */
+@media (hover: none) and (pointer: coarse) {
+  .filter-btn { min-height: 44px; padding: 10px 18px; }
+  .nav-icon-btn { min-width: 44px; min-height: 44px; }
+  .hamburger { min-width: 44px; min-height: 44px; }
+  .card-add-btn { min-height: 36px; }
+  .order-bar-clear,
+  .order-bar-copy { min-height: 40px; padding: 8px 18px; }
+  .order-chip-remove { min-width: 32px; min-height: 32px; }
+  .theme-toggle { min-width: 44px; min-height: 44px; }
+}
+
+/* Windows High Contrast Mode support */
+@media (forced-colors: active) {
+  .sticker-card { border: 1px solid ButtonText; }
+  .btn { border: 1px solid ButtonText; }
+  .filter-btn { border: 1px solid ButtonText; }
+  .order-bar { border-top: 2px solid ButtonText; }
 }
