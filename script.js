@@ -5,144 +5,7 @@
 
 'use strict';
 
-/* ─── Sticker Data ─── */
-const STICKERS = [
-  /* ── ANIME ── */
-  { id:'AN-001', name:'Gojo Satoru',      category:'anime',  emoji:'🔵', isNew:true,  price:1 },
-  { id:'AN-002', name:'Naruto Uzumaki',   category:'anime',  emoji:'🦊', isNew:false, price:1 },
-  { id:'AN-003', name:'Monkey D. Luffy',  category:'anime',  emoji:'🔴', isNew:false, price:1 },
-  { id:'AN-004', name:'Tanjiro Kamado',   category:'anime',  emoji:'🌊', isNew:true,  price:1 },
-  { id:'AN-005', name:'Levi Ackerman',    category:'anime',  emoji:'⚔️', isNew:false, price:1 },
-  { id:'AN-006', name:'Zero Two',         category:'anime',  emoji:'🌸', isNew:false, price:1 },
-  { id:'AN-007', name:'Itachi Uchiha',    category:'anime',  emoji:'👁️', isNew:false, price:1 },
-  { id:'AN-008', name:'Todoroki Shoto',   category:'anime',  emoji:'🧊', isNew:true,  price:1 },
-  { id:'AN-009', name:'Mikasa Ackerman',  category:'anime',  emoji:'🎀', isNew:false, price:1 },
-  { id:'AN-010', name:'Killua Zoldyck',   category:'anime',  emoji:'⚡', isNew:false, price:1 },
-  { id:'AN-011', name:'Nezuko Kamado',    category:'anime',  emoji:'💗', isNew:true,  price:1 },
-  { id:'AN-012', name:'Kakashi Hatake',   category:'anime',  emoji:'📖', isNew:false, price:1 },
-  { id:'AN-013', name:'Anya Forger',      category:'anime',  emoji:'😶', isNew:true,  price:1 },
-  { id:'AN-014', name:'Rem',              category:'anime',  emoji:'🔔', isNew:false, price:1 },
-  { id:'AN-015', name:'Edward Elric',     category:'anime',  emoji:'✨', isNew:false, price:1 },
-
-  /* ── K-POP ── */
-  { id:'KP-001', name:'BTS Logo',         category:'kpop',   emoji:'💜', isNew:false, price:1 },
-  { id:'KP-002', name:'BLACKPINK',        category:'kpop',   emoji:'🖤', isNew:false, price:1 },
-  { id:'KP-003', name:'Jungkook',         category:'kpop',   emoji:'⭐', isNew:true,  price:1 },
-  { id:'KP-004', name:'TWICE',            category:'kpop',   emoji:'🍭', isNew:false, price:1 },
-  { id:'KP-005', name:'Stray Kids',       category:'kpop',   emoji:'💫', isNew:true,  price:1 },
-  { id:'KP-006', name:'NewJeans',         category:'kpop',   emoji:'🐇', isNew:true,  price:1 },
-  { id:'KP-007', name:'(G)I-DLE',         category:'kpop',   emoji:'🌹', isNew:false, price:1 },
-  { id:'KP-008', name:'EXO Logo',         category:'kpop',   emoji:'🌙', isNew:false, price:1 },
-  { id:'KP-009', name:'aespa Karina',     category:'kpop',   emoji:'🤖', isNew:true,  price:1 },
-  { id:'KP-010', name:'SEVENTEEN',        category:'kpop',   emoji:'💎', isNew:false, price:1 },
-
-  /* ── GAMING ── */
-  { id:'GM-001', name:'Among Us Red',     category:'gaming', emoji:'🔴', isNew:false, price:1 },
-  { id:'GM-002', name:'Minecraft Diamond',category:'gaming', emoji:'💎', isNew:false, price:1 },
-  { id:'GM-003', name:'Valorant Logo',    category:'gaming', emoji:'🎯', isNew:true,  price:1 },
-  { id:'GM-004', name:'League of Legends',category:'gaming', emoji:'⚔️', isNew:false, price:1 },
-  { id:'GM-005', name:'CS2 Logo',         category:'gaming', emoji:'💥', isNew:true,  price:1 },
-  { id:'GM-006', name:'Pokéball',         category:'gaming', emoji:'⚪', isNew:false, price:1 },
-  { id:'GM-007', name:'Pac-Man',          category:'gaming', emoji:'🟡', isNew:false, price:1 },
-  { id:'GM-008', name:'Fortnite Llama',   category:'gaming', emoji:'🦙', isNew:false, price:1 },
-  { id:'GM-009', name:'Game Controller',  category:'gaming', emoji:'🎮', isNew:false, price:1 },
-  { id:'GM-010', name:'Zelda Triforce',   category:'gaming', emoji:'🔺', isNew:true,  price:1 },
-  { id:'GM-011', name:'Minecraft Creeper',category:'gaming', emoji:'💚', isNew:false, price:1 },
-  { id:'GM-012', name:'GTA Logo',         category:'gaming', emoji:'🌃', isNew:true,  price:1 },
-
-  /* ── SPORTS ── */
-  { id:'SP-001', name:'Soccer Ball',      category:'sports', emoji:'⚽', isNew:false, price:1 },
-  { id:'SP-002', name:'Basketball',       category:'sports', emoji:'🏀', isNew:false, price:1 },
-  { id:'SP-003', name:'Real Madrid',      category:'sports', emoji:'👑', isNew:false, price:1 },
-  { id:'SP-004', name:'FC Barcelona',     category:'sports', emoji:'🔵', isNew:false, price:1 },
-  { id:'SP-005', name:'Tennis Racket',    category:'sports', emoji:'🎾', isNew:false, price:1 },
-  { id:'SP-006', name:'Boxing Gloves',    category:'sports', emoji:'🥊', isNew:true,  price:1 },
-  { id:'SP-007', name:'NBA Logo',         category:'sports', emoji:'🏀', isNew:false, price:1 },
-  { id:'SP-008', name:'Formula 1 Car',    category:'sports', emoji:'🏎️', isNew:true,  price:1 },
-  { id:'SP-009', name:'PSG Logo',         category:'sports', emoji:'🗼', isNew:false, price:1 },
-  { id:'SP-010', name:'Manchester United',category:'sports', emoji:'👹', isNew:false, price:1 },
-
-  /* ── MOVIES ── */
-  { id:'MV-001', name:'Spider-Man',       category:'movies', emoji:'🕷️', isNew:false, price:1 },
-  { id:'MV-002', name:'Iron Man',         category:'movies', emoji:'🔴', isNew:false, price:1 },
-  { id:'MV-003', name:'The Joker',        category:'movies', emoji:'🃏', isNew:true,  price:1 },
-  { id:'MV-004', name:'Darth Vader',      category:'movies', emoji:'🌑', isNew:false, price:1 },
-  { id:'MV-005', name:'Batman Logo',      category:'movies', emoji:'🦇', isNew:false, price:1 },
-  { id:'MV-006', name:'Avengers Logo',    category:'movies', emoji:'⚡', isNew:false, price:1 },
-  { id:'MV-007', name:'Thanos',           category:'movies', emoji:'💜', isNew:false, price:1 },
-  { id:'MV-008', name:'Venom',            category:'movies', emoji:'🖤', isNew:true,  price:1 },
-  { id:'MV-009', name:'Godzilla',         category:'movies', emoji:'🦕', isNew:false, price:1 },
-  { id:'MV-010', name:'Black Panther',    category:'movies', emoji:'🐾', isNew:false, price:1 },
-
-  /* ── MUSIC ── */
-  { id:'MU-001', name:'Microphone',       category:'music',  emoji:'🎤', isNew:false, price:1 },
-  { id:'MU-002', name:'Electric Guitar',  category:'music',  emoji:'🎸', isNew:false, price:1 },
-  { id:'MU-003', name:'Vinyl Record',     category:'music',  emoji:'💿', isNew:false, price:1 },
-  { id:'MU-004', name:'The Weeknd',       category:'music',  emoji:'🌙', isNew:true,  price:1 },
-  { id:'MU-005', name:'Travis Scott',     category:'music',  emoji:'🌌', isNew:false, price:1 },
-  { id:'MU-006', name:'Headphones',       category:'music',  emoji:'🎧', isNew:false, price:1 },
-  { id:'MU-007', name:'Piano Keys',       category:'music',  emoji:'🎹', isNew:false, price:1 },
-  { id:'MU-008', name:'Drake OVO',        category:'music',  emoji:'🦉', isNew:true,  price:1 },
-  { id:'MU-009', name:'Music Notes',      category:'music',  emoji:'🎵', isNew:false, price:1 },
-  { id:'MU-010', name:'Kanye West',       category:'music',  emoji:'🎤', isNew:false, price:1 },
-
-  /* ── STUDY ── */
-  { id:'ST-001', name:'Coffee Cup',       category:'study',  emoji:'☕', isNew:false, price:1 },
-  { id:'ST-002', name:'Books Stack',      category:'study',  emoji:'📚', isNew:false, price:1 },
-  { id:'ST-003', name:'Study Pencil',     category:'study',  emoji:'✏️', isNew:false, price:1 },
-  { id:'ST-004', name:'Aesthetic Laptop', category:'study',  emoji:'💻', isNew:true,  price:1 },
-  { id:'ST-005', name:'Plant & Notebook', category:'study',  emoji:'🌿', isNew:false, price:1 },
-  { id:'ST-006', name:'Alarm Clock',      category:'study',  emoji:'⏰', isNew:false, price:1 },
-  { id:'ST-007', name:'Star Notes',       category:'study',  emoji:'⭐', isNew:false, price:1 },
-  { id:'ST-008', name:'Motivation',       category:'study',  emoji:'✨', isNew:true,  price:1 },
-
-  /* ── MANGA ── */
-  { id:'MG-001', name:'Dragon Ball Logo', category:'manga',  emoji:'🐉', isNew:false, price:1 },
-  { id:'MG-002', name:'One Piece Logo',   category:'manga',  emoji:'☠️', isNew:false, price:1 },
-  { id:'MG-003', name:'Naruto Leaf',      category:'manga',  emoji:'🍃', isNew:false, price:1 },
-  { id:'MG-004', name:'Bleach Skull',     category:'manga',  emoji:'💀', isNew:true,  price:1 },
-  { id:'MG-005', name:'Jujutsu Kaisen',   category:'manga',  emoji:'🌀', isNew:true,  price:1 },
-  { id:'MG-006', name:'AOT Wings',        category:'manga',  emoji:'🦅', isNew:false, price:1 },
-  { id:'MG-007', name:'Death Note',       category:'manga',  emoji:'📓', isNew:false, price:1 },
-  { id:'MG-008', name:'Fullmetal Logo',   category:'manga',  emoji:'⚗️', isNew:false, price:1 },
-
-  /* ── CARS ── */
-  { id:'CR-001', name:'JDM Drift Car',    category:'cars',   emoji:'🏎️', isNew:false, price:1 },
-  { id:'CR-002', name:'Lamborghini',      category:'cars',   emoji:'🐂', isNew:false, price:1 },
-  { id:'CR-003', name:'BMW M Logo',       category:'cars',   emoji:'💙', isNew:true,  price:1 },
-  { id:'CR-004', name:'Ferrari Prancing', category:'cars',   emoji:'🐎', isNew:false, price:1 },
-  { id:'CR-005', name:'Toyota Supra',     category:'cars',   emoji:'🚗', isNew:true,  price:1 },
-  { id:'CR-006', name:'Nissan GT-R',      category:'cars',   emoji:'⚡', isNew:false, price:1 },
-  { id:'CR-007', name:'Racing Flames',    category:'cars',   emoji:'🔥', isNew:false, price:1 },
-  { id:'CR-008', name:'Stance Car',       category:'cars',   emoji:'🚙', isNew:false, price:1 },
-  { id:'CR-009', name:'Porsche Logo',     category:'cars',   emoji:'🐴', isNew:true,  price:1 },
-
-  /* ── MEMES ── */
-  { id:'ME-001', name:'Doge',             category:'memes',  emoji:'🐕', isNew:false, price:1 },
-  { id:'ME-002', name:'Trollface',        category:'memes',  emoji:'😈', isNew:false, price:1 },
-  { id:'ME-003', name:'Shrek',            category:'memes',  emoji:'🌿', isNew:false, price:1 },
-  { id:'ME-004', name:'GigaChad',         category:'memes',  emoji:'💪', isNew:true,  price:1 },
-  { id:'ME-005', name:'This Is Fine',     category:'memes',  emoji:'🔥', isNew:false, price:1 },
-  { id:'ME-006', name:'Pepe the Frog',    category:'memes',  emoji:'🐸', isNew:false, price:1 },
-  { id:'ME-007', name:'Nyan Cat',         category:'memes',  emoji:'🌈', isNew:false, price:1 },
-  { id:'ME-008', name:'Crying Jordan',    category:'memes',  emoji:'😭', isNew:false, price:1 },
-  { id:'ME-009', name:'Surprised Pikachu',category:'memes',  emoji:'😮', isNew:true,  price:1 },
-  { id:'ME-010', name:'Brain Expanding',  category:'memes',  emoji:'🧠', isNew:false, price:1 },
-
-  /* ── QUOTES ── */
-  { id:'QT-001', name:'Stay Hungry',       category:'quotes', emoji:'🔥', isNew:true  , price:1 },
-  { id:'QT-002', name:'Dream Big',         category:'quotes', emoji:'🌙', isNew:false , price:1 },
-  { id:'QT-003', name:'Hustle Hard',       category:'quotes', emoji:'💪', isNew:true  , price:1 },
-  { id:'QT-004', name:'Good Vibes Only',   category:'quotes', emoji:'☀️', isNew:false , price:1 },
-  { id:'QT-005', name:'Level Up',          category:'quotes', emoji:'⬆️', isNew:true  , price:1 },
-  { id:'QT-006', name:'Born to Win',       category:'quotes', emoji:'🏆', isNew:false , price:1 },
-  { id:'QT-007', name:'Stay Weird',        category:'quotes', emoji:'🌀', isNew:false , price:1 },
-  { id:'QT-008', name:'No Pain No Gain',   category:'quotes', emoji:'⚡', isNew:false , price:1 },
-  { id:'QT-009', name:'Be Yourself',       category:'quotes', emoji:'💫', isNew:true  , price:1 },
-  { id:'QT-010', name:'Make It Happen',    category:'quotes', emoji:'✨', isNew:false , price:1 },
-  { id:'QT-011', name:'Stay Focused',      category:'quotes', emoji:'🎯', isNew:false , price:1 },
-  { id:'QT-012', name:'Embrace the Chaos', category:'quotes', emoji:'🌪️', isNew:true  , price:1 },
-];
+/* ─── Sticker data lives in stickers.js — edit that file to add/change stickers ─── */
 
 /* ─── Category gradient map ─── */
 const CAT_STYLES = {
@@ -604,14 +467,16 @@ function buildCard(s) {
   article.innerHTML = `
     <div class="card-img-wrap">
       <div class="card-img-bg">${getBgSVG(s.category, s.id)}</div>
-      <div class="card-img-emoji" aria-hidden="true">${s.emoji}</div>
+      ${s.image
+        ? `<img class="card-img-photo" src="${s.image}" alt="${s.name}" loading="lazy">`
+        : `<div class="card-img-emoji" aria-hidden="true">${s.emoji}</div>`}
       ${s.isNew ? '<div class="card-new-badge" aria-label="New sticker">New</div>' : ''}
       <div class="card-waterproof" aria-label="Waterproof sticker">💧 Waterproof</div>
     </div>
     <div class="card-body">
       <div class="card-meta-row">
         <p class="card-category">${s.category}</p>
-        <p class="card-price" aria-label="Price: ${s.price} MAD">${s.price} MAD</p>
+        <p class="card-price" aria-label="Price: ${s.price ?? 1} MAD">${s.price ?? 1} MAD</p>
       </div>
       <h3 class="card-name" title="${s.name}">${s.name}</h3>
       <p class="card-id">${s.id}</p>
