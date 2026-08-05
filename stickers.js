@@ -25,8 +25,8 @@ const STICKERS = [
 
   // ── ANIME ────────────────────────────────────────────────────
   { id: 'AN-001', name: 'Gojo Satoru',      category: 'anime',  emoji: '🔵', isNew: true  },
-  { id: 'AN-002', name: 'Naruto Uzumaki',   category: 'anime',  emoji: '🦊'               },
-  { id: 'AN-003', name: 'Monkey D. Luffy',  category: 'anime',  emoji: '🔴'               },
+  { id: 'AN-002', name: 'killua', category: 'anime', emoji: '🦊', image: 'images/naruto.png' },
+  { id: 'AN-003', name: 'Monkey D. Luffy',  category: 'anime',  emoji: '🔴' ,image: 'images/luffy.png' },
   { id: 'AN-004', name: 'Tanjiro Kamado',   category: 'anime',  emoji: '🌊', isNew: true  },
   { id: 'AN-005', name: 'Levi Ackerman',    category: 'anime',  emoji: '⚔️'               },
   { id: 'AN-006', name: 'Zero Two',         category: 'anime',  emoji: '🌸'               },
