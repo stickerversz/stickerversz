@@ -13,7 +13,7 @@
 //  USE YOUR OWN IMAGE (put the file in the images/ folder):
 //    { ..., image: 'images/my-sticker.png' },
 //
-//  CHANGE THE PRICE (default is 1 MAD):
+//  CHANGE THE PRICE (default is 3 MAD):
 //    { ..., price: 2 },
 //
 //  AVAILABLE CATEGORIES:
@@ -24,21 +24,23 @@
 const STICKERS = [
 
   // ── ANIME ────────────────────────────────────────────────────
-  { id: 'AN-001', name: 'Gojo Satoru',      category: 'anime',  emoji: '🔵', isNew: true  },
-  { id: 'AN-002', name: 'killua', category: 'anime', emoji: '🦊', image: 'images/naruto.png' },
-  { id: 'AN-003', name: 'Monkey D. Luffy',  category: 'anime',  emoji: '🔴' ,image: 'images/luffy.png' },
-  { id: 'AN-004', name: 'Tanjiro Kamado',   category: 'anime',  emoji: '🌊', isNew: true  },
-  { id: 'AN-005', name: 'Levi Ackerman',    category: 'anime',  emoji: '⚔️'               },
-  { id: 'AN-006', name: 'Zero Two',         category: 'anime',  emoji: '🌸'               },
-  { id: 'AN-007', name: 'Itachi Uchiha',    category: 'anime',  emoji: '👁️'               },
-  { id: 'AN-008', name: 'Todoroki Shoto',   category: 'anime',  emoji: '🧊', isNew: true  },
-  { id: 'AN-009', name: 'Mikasa Ackerman',  category: 'anime',  emoji: '🎀'               },
-  { id: 'AN-010', name: 'Killua Zoldyck',   category: 'anime',  emoji: '⚡'               },
-  { id: 'AN-011', name: 'Nezuko Kamado',    category: 'anime',  emoji: '💗', isNew: true  },
-  { id: 'AN-012', name: 'Kakashi Hatake',   category: 'anime',  emoji: '📖'               },
-  { id: 'AN-013', name: 'Anya Forger',      category: 'anime',  emoji: '😶', isNew: true  },
-  { id: 'AN-014', name: 'Rem',              category: 'anime',  emoji: '🔔'               },
-  { id: 'AN-015', name: 'Edward Elric',     category: 'anime',  emoji: '✨'               },
+  { id: 'AN-001', name: 'turbo granny',      category: 'anime',  emoji: '🔵', image: 'images/turbo granny.png', isNew: true, price: 3   },
+  { id: 'AN-002', name: 'killua', category: 'anime', emoji: '🦊', image: 'images/killua.png', isNew: true  },
+  { id: 'AN-003', name: 'Monkey D. Luffy',  category: 'anime',  emoji: '🔴' ,image: 'images/monkey d luffy.png', isNew: true  },
+  { id: 'AN-004', name: 'titan', category: 'anime', emoji: '🦊', image: 'images/titan.png', isNew: true   },
+  { id: 'AN-005', name: 'my hero academia', category: 'anime', emoji: '🦊', image: 'images/my hero academia.png', isNew: true   },
+  { id: 'AN-006', name: 'one piece', category: 'anime', emoji: '🦊', image: 'images/one piece.png', isNew: true  },
+  { id: 'AN-007', name: 'shigaraki', category: 'anime', emoji: '🦊', image: 'images/shigaraki.png', isNew: true  },
+  { id: 'AN-008', name: 'fire force', category: 'anime', emoji: '🦊', image: 'images/fire force.png', isNew: true   },
+  { id: 'AN-009', name: 'jjk', category: 'anime', emoji: '🦊', image: 'images/jjk.png', isNew: true   },
+  { id: 'AN-010', name: 'kaiju no 8', category: 'anime', emoji: '🦊', image: 'images/kaijo no 8.png', isNew: true   },
+  { id: 'AN-011', name: 'makima', category: 'anime', emoji: '🦊', image: 'images/makima.png',  isNew: true },
+  { id: 'AN-012', name: 'all might', category: 'anime', emoji: '🦊', image: 'images/all might.png', isNew: true  },
+  { id: 'AN-013', name: 'aot', category: 'anime', emoji: '🦊', image: 'images/aot.png', isNew: true  },
+  { id: 'AN-014', name: 'bakugo', category: 'anime', emoji: '🦊', image: 'images/bakugo.png', isNew: true  },
+  { id: 'AN-015', name: 'chainsaw man', category: 'anime', emoji: '🦊', image: 'images/chainsaw man.png', isNew: true   },
+  { id: 'AN-016', name: 'dan da dan', category: 'anime', emoji: '🦊', image: 'images/dan da dan.png', isNew: true  },
+  { id: 'AN-017', name: 'dr stone', category: 'anime', emoji: '🦊', image: 'images/dr stone.png', isNew: true  },
 
   // ── K-POP ────────────────────────────────────────────────────
   { id: 'KP-001', name: 'BTS Logo',         category: 'kpop',   emoji: '💜'               },
