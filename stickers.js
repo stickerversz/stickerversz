@@ -17,7 +17,7 @@
 //    { ..., price: 2 },
 //
 //  AVAILABLE CATEGORIES:
-//    anime · kpop · gaming · sports · movies · music · study · manga · cars · memes · quotes
+//    anime · kpop · gaming · sports · movies · music · study · manga · cars · memes · quotes · series · kdrama · others
 //
 // ================================================================
 
@@ -168,5 +168,41 @@ const STICKERS = [
   { id: 'QT-010', name: 'Make It Happen',   category: 'quotes', emoji: '✨'               },
   { id: 'QT-011', name: 'Stay Focused',     category: 'quotes', emoji: '🎯'               },
   { id: 'QT-012', name: 'Embrace the Chaos',category: 'quotes', emoji: '🌪️', isNew: true  },
+
+  // ── SERIES ───────────────────────────────────────────────────
+  { id: 'SR-001', name: 'Breaking Bad',      category: 'series', emoji: '⚗️', isNew: true  },
+  { id: 'SR-002', name: 'Game of Thrones',   category: 'series', emoji: '🐉', isNew: true  },
+  { id: 'SR-003', name: 'Stranger Things',   category: 'series', emoji: '🔦', isNew: true  },
+  { id: 'SR-004', name: 'The Office',        category: 'series', emoji: '📎'               },
+  { id: 'SR-005', name: 'Friends',           category: 'series', emoji: '☕'               },
+  { id: 'SR-006', name: 'Squid Game',        category: 'series', emoji: '🟩', isNew: true  },
+  { id: 'SR-007', name: 'Peaky Blinders',    category: 'series', emoji: '🎩'               },
+  { id: 'SR-008', name: 'The Last of Us',    category: 'series', emoji: '🍄', isNew: true  },
+  { id: 'SR-009', name: 'Wednesday',         category: 'series', emoji: '🖤', isNew: true  },
+  { id: 'SR-010', name: 'Dark',              category: 'series', emoji: '🕳️'               },
+  { id: 'SR-011', name: 'The Bear',          category: 'series', emoji: '🐻', isNew: true  },
+  { id: 'SR-012', name: 'House of the Dragon', category: 'series', emoji: '🔥', isNew: true },
+
+  // ── K-DRAMA ──────────────────────────────────────────────────
+  { id: 'KD-001', name: 'Crash Landing on You', category: 'kdrama', emoji: '🪂', isNew: true },
+  { id: 'KD-002', name: 'Goblin',            category: 'kdrama', emoji: '🕯️', isNew: true  },
+  { id: 'KD-003', name: 'Itaewon Class',     category: 'kdrama', emoji: '🍺'               },
+  { id: 'KD-004', name: 'Vincenzo',          category: 'kdrama', emoji: '🌹', isNew: true  },
+  { id: 'KD-005', name: 'The Glory',         category: 'kdrama', emoji: '✨', isNew: true  },
+  { id: 'KD-006', name: 'Business Proposal', category: 'kdrama', emoji: '💼'               },
+  { id: 'KD-007', name: 'Twenty Five Twenty One', category: 'kdrama', emoji: '🤸'          },
+  { id: 'KD-008', name: 'My Love From the Star', category: 'kdrama', emoji: '⭐', isNew: true },
+  { id: 'KD-009', name: 'Strong Woman Do Bong-soon', category: 'kdrama', emoji: '💪'       },
+  { id: 'KD-010', name: 'Extraordinary Woo', category: 'kdrama', emoji: '🐳', isNew: true  },
+
+  // ── OTHERS ───────────────────────────────────────────────────
+  { id: 'OT-001', name: 'Question Mark',     category: 'others', emoji: '❓'               },
+  { id: 'OT-002', name: 'Lucky Star',        category: 'others', emoji: '🌟', isNew: true  },
+  { id: 'OT-003', name: 'Rainbow',           category: 'others', emoji: '🌈'               },
+  { id: 'OT-004', name: 'Mystery Box',       category: 'others', emoji: '📦', isNew: true  },
+  { id: 'OT-005', name: 'Planet',            category: 'others', emoji: '🪐'               },
+  { id: 'OT-006', name: 'Crystal Ball',      category: 'others', emoji: '🔮', isNew: true  },
+  { id: 'OT-007', name: 'Infinity',          category: 'others', emoji: '♾️'               },
+  { id: 'OT-008', name: 'Custom Design',     category: 'others', emoji: '🎨', isNew: true  },
 
 ];

@@ -20,6 +20,9 @@ const CAT_STYLES = {
   cars:   { from:'#200000', to:'#4a0000', accent:'#f87171' },
   memes:  { from:'#181800', to:'#383800', accent:'#facc15' },
   quotes: { from:'#0a0400', to:'#2a1200', accent:'#f59e0b' },
+  series: { from:'#1a0010', to:'#3d0028', accent:'#fb7185' },
+  kdrama: { from:'#1a0030', to:'#3a0050', accent:'#f9a8d4' },
+  others: { from:'#050520', to:'#0f1535', accent:'#7dd3fc' },
 };
 
 /* ─── State ─── */
@@ -452,6 +455,124 @@ memes: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100
 <circle cx="76" cy="168" r="3.5" fill="#f59e0b" opacity=".32"/>
 </svg>`;
 
+/* ── SERIES ── clapperboard · film strip · TV screen · stars · spotlight */
+  svgs.series = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%" style="position:absolute;inset:0" aria-hidden="true">
+<defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0010"/><stop offset="100%" stop-color="#3d0028"/></linearGradient></defs>
+<rect width="300" height="300" fill="url(#${g})"/>
+<path d="M0 0 L260 300 L180 300 Z" fill="#fb7185" opacity=".04"/>
+<rect x="0" y="0" width="20" height="300" fill="#000" opacity=".4"/>
+<rect x="3" y="10" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="3" y="48" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="3" y="86" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="3" y="124" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="3" y="162" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="3" y="200" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="3" y="238" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="278" y="0" width="22" height="300" fill="#000" opacity=".4"/>
+<rect x="281" y="10" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="281" y="48" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="281" y="86" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="281" y="124" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="281" y="162" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="281" y="200" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="281" y="238" width="14" height="20" rx="2" fill="#111" stroke="#fb7185" stroke-width="1" opacity=".55"/>
+<rect x="60" y="170" width="130" height="90" rx="8" fill="none" stroke="#fb7185" stroke-width="2" opacity=".35"/>
+<line x1="60" y1="188" x2="190" y2="188" stroke="#fb7185" stroke-width="1" opacity=".2"/>
+<circle cx="72" cy="180" r="4" fill="#fb7185" opacity=".35"/>
+<circle cx="85" cy="180" r="4" fill="#fda4af" opacity=".3"/>
+<rect x="65" y="195" width="50" height="8" rx="2" fill="#fb7185" opacity=".18"/>
+<rect x="65" y="210" width="70" height="6" rx="2" fill="#fda4af" opacity=".14"/>
+<rect x="65" y="222" width="40" height="6" rx="2" fill="#fb7185" opacity=".14"/>
+<rect x="60" y="130" width="130" height="28" rx="4" fill="#fb7185" opacity=".18"/>
+<line x1="60" y1="130" x2="190" y2="158" stroke="#fb7185" stroke-width="1" opacity=".25"/>
+<rect x="70" y="120" width="110" height="12" rx="2" fill="#000" opacity=".5"/>
+<line x1="85" y1="120" x2="85" y2="132" stroke="#fb7185" stroke-width="2" opacity=".4"/>
+<line x1="105" y1="120" x2="105" y2="132" stroke="#fb7185" stroke-width="2" opacity=".4"/>
+<line x1="125" y1="120" x2="125" y2="132" stroke="#fb7185" stroke-width="2" opacity=".4"/>
+<line x1="145" y1="120" x2="145" y2="132" stroke="#fb7185" stroke-width="2" opacity=".4"/>
+<line x1="165" y1="120" x2="165" y2="132" stroke="#fb7185" stroke-width="2" opacity=".4"/>
+<path d="M112 50 L130 22 L150 37 L170 22 L188 50 Z" fill="none" stroke="#fb7185" stroke-width="3.5" stroke-linejoin="round" opacity=".72"/>
+<rect x="110" y="48" width="80" height="11" rx="3" fill="#fb7185" opacity=".52"/>
+<path d="M242 62 L246 52 L250 62 L260 66 L250 70 L246 80 L242 70 L232 66 Z" fill="#fb7185" opacity=".65"/>
+<path d="M38 208 L42 199 L46 208 L56 212 L46 216 L42 226 L38 216 L28 212 Z" fill="#fda4af" opacity=".55"/>
+<path d="M268 220 L271 213 L274 220 L281 223 L274 226 L271 233 L268 226 L261 223 Z" fill="#fb7185" opacity=".5"/>
+<path d="M248 160 L240 183 L248 183 L239 207 L258 175 L248 175 Z" fill="#fb7185" opacity=".55"/>
+<circle cx="212" cy="82" r="5" fill="#fb7185" opacity=".38"/>
+<circle cx="82" cy="98" r="4" fill="#fda4af" opacity=".36"/>
+<circle cx="232" cy="248" r="5.5" fill="#fb7185" opacity=".3"/>
+<circle cx="168" cy="262" r="3.5" fill="#fda4af" opacity=".38"/>
+</svg>`;
+
+/* ── K-DRAMA ── cherry blossoms · hearts · ribbon · lantern · crown */
+  svgs.kdrama = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%" style="position:absolute;inset:0" aria-hidden="true">
+<defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0030"/><stop offset="100%" stop-color="#3a0050"/></linearGradient></defs>
+<rect width="300" height="300" fill="url(#${g})"/>
+<path d="M150 0 L300 300 L0 300 Z" fill="#f9a8d4" opacity=".03"/>
+<path d="M112 50 L130 22 L150 37 L170 22 L188 50 Z" fill="none" stroke="#f9a8d4" stroke-width="3.5" stroke-linejoin="round" opacity=".72"/>
+<rect x="110" y="48" width="80" height="11" rx="3" fill="#f9a8d4" opacity=".52"/>
+<ellipse cx="48" cy="72" rx="14" ry="9" fill="#f9a8d4" opacity=".5" transform="rotate(-25 48 72)"/>
+<ellipse cx="252" cy="88" rx="12" ry="8" fill="#fbcfe8" opacity=".45" transform="rotate(18 252 88)"/>
+<ellipse cx="78" cy="228" rx="13" ry="9" fill="#f9a8d4" opacity=".42" transform="rotate(-30 78 228)"/>
+<ellipse cx="258" cy="238" rx="11" ry="8" fill="#fbcfe8" opacity=".38" transform="rotate(22 258 238)"/>
+<ellipse cx="162" cy="278" rx="12" ry="8" fill="#f9a8d4" opacity=".35" transform="rotate(8 162 278)"/>
+<ellipse cx="118" cy="118" rx="10" ry="7" fill="#fbcfe8" opacity=".32" transform="rotate(-15 118 118)"/>
+<path d="M50 105 C50 98 58 93 66 100 C74 93 82 98 82 105 C82 117 66 128 66 128 C66 128 50 117 50 105 Z" fill="#f9a8d4" opacity=".5"/>
+<path d="M218 198 C218 192 225 188 231 194 C237 188 244 192 244 198 C244 210 231 220 231 220 C231 220 218 210 218 198 Z" fill="#fbcfe8" opacity=".45"/>
+<path d="M244 68 C244 63 249 59 254 64 C259 59 264 63 264 68 C264 78 254 86 254 86 C254 86 244 78 244 68 Z" fill="#f9a8d4" opacity=".42"/>
+<path d="M32 232 C32 228 36 224 41 229 C46 224 50 228 50 232 C50 240 41 247 41 247 C41 247 32 240 32 232 Z" fill="#fbcfe8" opacity=".38"/>
+<path d="M148 168 C148 162 155 158 161 164 C167 158 174 162 174 168 C174 180 161 190 161 190 C161 190 148 180 148 168 Z" fill="#f9a8d4" opacity=".32"/>
+<path d="M0 262 Q40 240 80 262 Q120 284 160 262 Q200 240 240 262 Q270 278 300 262" fill="none" stroke="#f9a8d4" stroke-width="2" opacity=".2"/>
+<path d="M0 278 Q40 258 80 278 Q120 298 160 278" fill="none" stroke="#fbcfe8" stroke-width="1.5" opacity=".16"/>
+<path d="M33 150 L36 142 L39 150 L47 153 L39 156 L36 164 L33 156 L25 153 Z" fill="#f9a8d4" opacity=".7"/>
+<path d="M258 140 L261 132 L264 140 L272 143 L264 146 L261 154 L258 146 L250 143 Z" fill="#fbcfe8" opacity=".65"/>
+<path d="M164 264 L166 258 L168 264 L174 266 L168 268 L166 274 L164 268 L158 266 Z" fill="#f9a8d4" opacity=".58"/>
+<path d="M272 30 L274 24 L276 30 L282 32 L276 34 L274 40 L272 34 L266 32 Z" fill="#fbcfe8" opacity=".62"/>
+<path d="M268 158 L260 181 L268 181 L259 205 L278 174 L269 174 Z" fill="#f9a8d4" opacity=".52"/>
+<circle cx="130" cy="112" r="5" fill="#f9a8d4" opacity=".4"/>
+<circle cx="196" cy="138" r="3.5" fill="#fbcfe8" opacity=".38"/>
+<circle cx="82" cy="182" r="4" fill="#f9a8d4" opacity=".38"/>
+<circle cx="218" cy="92" r="3" fill="#fbcfe8" opacity=".42"/>
+<circle cx="148" cy="242" r="5" fill="#f9a8d4" opacity=".3"/>
+</svg>`;
+
+/* ── OTHERS ── stars · question marks · planets · sparkles · cosmic */
+  svgs.others = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%" style="position:absolute;inset:0" aria-hidden="true">
+<defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#050520"/><stop offset="100%" stop-color="#0f1535"/></linearGradient></defs>
+<rect width="300" height="300" fill="url(#${g})"/>
+<circle cx="200" cy="220" r="60" fill="none" stroke="#7dd3fc" stroke-width="1.5" opacity=".18"/>
+<circle cx="200" cy="220" r="40" fill="none" stroke="#7dd3fc" stroke-width="1" opacity=".15"/>
+<ellipse cx="200" cy="220" rx="80" ry="18" fill="none" stroke="#7dd3fc" stroke-width="1.5" opacity=".22"/>
+<circle cx="200" cy="220" r="22" fill="#7dd3fc" opacity=".15"/>
+<circle cx="200" cy="220" r="8" fill="#38bdf8" opacity=".35"/>
+<path d="M52 82 Q52 65 68 65 Q84 65 84 80 Q84 91 68 96 L68 106" fill="none" stroke="#7dd3fc" stroke-width="4" stroke-linecap="round" opacity=".48"/>
+<circle cx="68" cy="116" r="4" fill="#7dd3fc" opacity=".48"/>
+<path d="M218 162 Q218 148 231 148 Q244 148 244 161 Q244 171 231 175 L231 183" fill="none" stroke="#bae6fd" stroke-width="3.5" stroke-linecap="round" opacity=".42"/>
+<circle cx="231" cy="191" r="3.5" fill="#bae6fd" opacity=".42"/>
+<path d="M82 192 Q82 180 93 180 Q104 180 104 191 Q104 200 93 204 L93 211" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round" opacity=".36"/>
+<circle cx="93" cy="218" r="3" fill="#7dd3fc" opacity=".36"/>
+<path d="M112 50 L130 22 L150 37 L170 22 L188 50 Z" fill="none" stroke="#7dd3fc" stroke-width="3.5" stroke-linejoin="round" opacity=".72"/>
+<rect x="110" y="48" width="80" height="11" rx="3" fill="#7dd3fc" opacity=".52"/>
+<path d="M33 148 L36 140 L39 148 L47 151 L39 154 L36 162 L33 154 L25 151 Z" fill="#7dd3fc" opacity=".7"/>
+<path d="M259 60 L262 52 L265 60 L273 63 L265 66 L262 74 L259 66 L251 63 Z" fill="#bae6fd" opacity=".62"/>
+<path d="M262 230 L265 222 L268 230 L276 233 L268 236 L265 244 L262 236 L254 233 Z" fill="#7dd3fc" opacity=".55"/>
+<path d="M268 145 L260 168 L268 168 L259 192 L278 160 L268 160 Z" fill="#7dd3fc" opacity=".52"/>
+<rect x="38" y="200" width="6" height="6" fill="#7dd3fc" opacity=".42"/>
+<rect x="42" y="196" width="6" height="6" fill="#7dd3fc" opacity=".42"/>
+<rect x="42" y="204" width="6" height="6" fill="#7dd3fc" opacity=".42"/>
+<rect x="262" y="100" width="6" height="6" fill="#bae6fd" opacity=".38"/>
+<rect x="266" y="96" width="6" height="6" fill="#bae6fd" opacity=".38"/>
+<rect x="266" y="104" width="6" height="6" fill="#bae6fd" opacity=".38"/>
+<circle cx="122" cy="108" r="2.5" fill="#7dd3fc" opacity=".55"/>
+<circle cx="188" cy="82" r="2" fill="#bae6fd" opacity=".5"/>
+<circle cx="62" cy="152" r="3" fill="#7dd3fc" opacity=".42"/>
+<circle cx="248" cy="182" r="2.5" fill="#bae6fd" opacity=".42"/>
+<circle cx="138" cy="252" r="2" fill="#7dd3fc" opacity=".48"/>
+<circle cx="58" cy="252" r="3.5" fill="#7dd3fc" opacity=".3"/>
+<circle cx="242" cy="52" r="2.5" fill="#bae6fd" opacity=".42"/>
+<circle cx="42" cy="72" r="2" fill="#7dd3fc" opacity=".38"/>
+<circle cx="272" cy="272" r="3" fill="#7dd3fc" opacity=".35"/>
+</svg>`;
+
   return svgs[cat] || svgs.anime;
 }
 
@@ -853,11 +974,21 @@ function renderOrderBar() {
     orderBar.classList.remove('open');
     document.body.classList.remove('bar-open');
     orderChips.innerHTML = '';
+    const totalEl = document.getElementById('orderTotal');
+    if (totalEl) totalEl.textContent = '';
     return;
   }
 
   orderBar.classList.add('open');
   document.body.classList.add('bar-open');
+
+  /* Calculate total price */
+  const total = ids.reduce((sum, id) => {
+    const sticker = STICKERS.find(s => s.id === id);
+    return sum + (sticker?.price ?? 1);
+  }, 0);
+  const totalEl = document.getElementById('orderTotal');
+  if (totalEl) totalEl.textContent = `${total} MAD`;
 
   orderChips.innerHTML = ids.map(id => `
     <div class="order-chip" role="listitem">
@@ -884,7 +1015,12 @@ clearOrder.addEventListener('click', () => {
 /* Copy all IDs */
 copyAllIds.addEventListener('click', () => {
   if (!selectedIds.size) return;
-  const text = [...selectedIds].join(', ');
+  const ids = [...selectedIds];
+  const total = ids.reduce((sum, id) => {
+    const sticker = STICKERS.find(s => s.id === id);
+    return sum + (sticker?.price ?? 1);
+  }, 0);
+  const text = `HELLO I WANT TO ORDER:\n${ids.join(', ')}\nTotal: ${total} MAD`;
   copyToClipboard(text);
   copyAllIds.textContent = '✓ Copied!';
   setTimeout(() => {
