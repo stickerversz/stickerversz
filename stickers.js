@@ -184,6 +184,20 @@ const STICKERS = [
   { id: 'KD-009', name: 'Strong Woman Do Bong-soon', category: 'kdrama', emoji: '💪'       },
   { id: 'KD-010', name: 'Extraordinary Woo', category: 'kdrama', emoji: '🐳', isNew: true  },
 
+  // ── CARTOON ──────────────────────────────────────────────────
+  { id: 'CT-001', name: 'SPONGEBOB SQUAREPANTS', category: 'cartoon', emoji: '🧽', isNew: true, price: 3 },
+  { id: 'CT-002', name: 'PATRICK STAR',           category: 'cartoon', emoji: '⭐', isNew: true, price: 3 },
+  { id: 'CT-003', name: 'TOM & JERRY',            category: 'cartoon', emoji: '🐱', isNew: true, price: 3 },
+  { id: 'CT-004', name: 'BUGS BUNNY',             category: 'cartoon', emoji: '🐰', isNew: true, price: 3 },
+  { id: 'CT-005', name: 'SCOOBY-DOO',             category: 'cartoon', emoji: '🐕', isNew: true, price: 3 },
+  { id: 'CT-006', name: 'COURAGE THE COWARDLY DOG', category: 'cartoon', emoji: '🟪', isNew: true, price: 3 },
+  { id: 'CT-007', name: 'FINN & JAKE',            category: 'cartoon', emoji: '🗡️', isNew: true, price: 3 },
+  { id: 'CT-008', name: 'GRAVITY FALLS',          category: 'cartoon', emoji: '🔺', isNew: true, price: 3 },
+  { id: 'CT-009', name: 'RICK & MORTY',           category: 'cartoon', emoji: '🧪', isNew: true, price: 3 },
+  { id: 'CT-010', name: 'POWERPUFF GIRLS',        category: 'cartoon', emoji: '💥', isNew: true, price: 3 },
+  { id: 'CT-011', name: 'DEXTER',                 category: 'cartoon', emoji: '🔬', isNew: true, price: 3 },
+  { id: 'CT-012', name: 'JOHNNY BRAVO',           category: 'cartoon', emoji: '💪', isNew: true, price: 3 },
+
   // ── OTHERS ───────────────────────────────────────────────────
   { id: 'OT-001', name: 'CAT', category: 'others', emoji: '🦊', image: 'images/ot001.png', isNew: true, price: 3  },
   { id: 'OT-002', name: 'DORITOS', category: 'others', emoji: '🦊', image: 'images/ot002.png', isNew: true, price: 3  },

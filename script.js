@@ -22,13 +22,14 @@ const CAT_STYLES = {
   quotes: { from:'#0a0400', to:'#2a1200', accent:'#f59e0b' },
   series: { from:'#1a0010', to:'#3d0028', accent:'#fb7185' },
   kdrama: { from:'#1a0030', to:'#3a0050', accent:'#f9a8d4' },
+  cartoon: { from:'#002820', to:'#005840', accent:'#34d399' },
   others: { from:'#050520', to:'#0f1535', accent:'#7dd3fc' },
 };
 
 /* ─── State ─── */
 let activeFilter = 'all';
 let searchQuery  = '';
-const selectedIds = new Set();
+const selectedQtys = new Map(); // id → quantity
 
 /* ─── DOM refs ─── */
 const stickerGrid     = document.getElementById('stickerGrid');
@@ -573,6 +574,74 @@ memes: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100
 <circle cx="272" cy="272" r="3" fill="#7dd3fc" opacity=".35"/>
 </svg>`;
 
+  /* ── CARTOON ── speech bubbles · comic stars · halftone dots · action marks · bold outlines */
+  svgs.cartoon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="100%" height="100%" style="position:absolute;inset:0" aria-hidden="true">
+<defs><linearGradient id="${g}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#002820"/><stop offset="100%" stop-color="#005840"/></linearGradient></defs>
+<rect width="300" height="300" fill="url(#${g})"/>
+<!-- halftone dot grid -->
+<circle cx="20"  cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="50"  cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="80"  cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="110" cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="140" cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="170" cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="200" cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="230" cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="260" cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="290" cy="20"  r="2.5" fill="#34d399" opacity=".18"/>
+<circle cx="35"  cy="45"  r="2.5" fill="#34d399" opacity=".15"/>
+<circle cx="65"  cy="45"  r="2.5" fill="#34d399" opacity=".15"/>
+<circle cx="95"  cy="45"  r="2.5" fill="#34d399" opacity=".15"/>
+<circle cx="125" cy="45"  r="2.5" fill="#34d399" opacity=".15"/>
+<circle cx="155" cy="45"  r="2.5" fill="#34d399" opacity=".15"/>
+<circle cx="185" cy="45"  r="2.5" fill="#34d399" opacity=".15"/>
+<circle cx="215" cy="45"  r="2.5" fill="#34d399" opacity=".15"/>
+<circle cx="245" cy="45"  r="2.5" fill="#34d399" opacity=".15"/>
+<circle cx="275" cy="45"  r="2.5" fill="#34d399" opacity=".15"/>
+<circle cx="20"  cy="70"  r="2"   fill="#34d399" opacity=".12"/>
+<circle cx="50"  cy="70"  r="2"   fill="#34d399" opacity=".12"/>
+<circle cx="80"  cy="70"  r="2"   fill="#34d399" opacity=".12"/>
+<circle cx="110" cy="70"  r="2"   fill="#34d399" opacity=".12"/>
+<circle cx="260" cy="70"  r="2"   fill="#34d399" opacity=".12"/>
+<circle cx="290" cy="70"  r="2"   fill="#34d399" opacity=".12"/>
+<!-- speech bubble top-left -->
+<rect x="18" y="88" width="72" height="42" rx="10" fill="#34d399" opacity=".22" stroke="#34d399" stroke-width="2"/>
+<polygon points="28,130 18,148 42,130" fill="#34d399" opacity=".22"/>
+<circle cx="34" cy="109" r="4" fill="#34d399" opacity=".5"/>
+<circle cx="54" cy="109" r="4" fill="#34d399" opacity=".5"/>
+<circle cx="74" cy="109" r="4" fill="#34d399" opacity=".5"/>
+<!-- speech bubble top-right -->
+<rect x="210" y="72" width="78" height="44" rx="10" fill="#6ee7b7" opacity=".18" stroke="#6ee7b7" stroke-width="2"/>
+<polygon points="268,116 288,134 258,116" fill="#6ee7b7" opacity=".18"/>
+<line x1="222" y1="88"  x2="276" y2="88"  stroke="#6ee7b7" stroke-width="2.5" stroke-linecap="round" opacity=".45"/>
+<line x1="222" y1="100" x2="262" y2="100" stroke="#6ee7b7" stroke-width="2.5" stroke-linecap="round" opacity=".38"/>
+<line x1="222" y1="112" x2="270" y2="112" stroke="#6ee7b7" stroke-width="2" stroke-linecap="round" opacity=".32"/>
+<!-- comic action star (POW) top-right corner -->
+<path d="M248 18 L252 8 L256 18 L266 14 L260 22 L270 26 L260 28 L264 38 L254 32 L252 42 L250 32 L240 38 L244 28 L234 26 L244 22 L238 14 Z" fill="#fbbf24" opacity=".72" stroke="#92400e" stroke-width="1.2" stroke-linejoin="round"/>
+<!-- comic action star (ZAP) bottom-left -->
+<path d="M38 238 L42 226 L46 238 L58 233 L51 243 L62 248 L51 250 L56 262 L44 255 L42 268 L40 255 L28 262 L33 250 L22 248 L33 243 L26 233 Z" fill="#f472b6" opacity=".65" stroke="#831843" stroke-width="1.2" stroke-linejoin="round"/>
+<!-- small comic sparkle stars -->
+<path d="M158 34 L160 28 L162 34 L168 36 L162 38 L160 44 L158 38 L152 36 Z" fill="#fde68a" opacity=".78"/>
+<path d="M22 178 L24 172 L26 178 L32 180 L26 182 L24 188 L22 182 L16 180 Z" fill="#fde68a" opacity=".68"/>
+<path d="M278 168 L280 162 L282 168 L288 170 L282 172 L280 178 L278 172 L272 170 Z" fill="#fde68a" opacity=".72"/>
+<path d="M134 268 L136 263 L138 268 L143 270 L138 272 L136 277 L134 272 L129 270 Z" fill="#a7f3d0" opacity=".65"/>
+<!-- lightning bolt action mark -->
+<path d="M268 178 L261 198 L268 198 L260 222 L278 194 L270 194 Z" fill="#34d399" opacity=".62" stroke="#065f46" stroke-width="1"/>
+<!-- squiggly underline -->
+<path d="M80 272 Q90 266 100 272 Q110 278 120 272 Q130 266 140 272 Q150 278 160 272 Q170 266 180 272 Q190 278 200 272 Q210 266 220 272" stroke="#34d399" stroke-width="2.5" fill="none" opacity=".4" stroke-linecap="round"/>
+<!-- small thought bubble -->
+<circle cx="182" cy="228" r="3"  fill="#6ee7b7" opacity=".38"/>
+<circle cx="192" cy="222" r="4.5" fill="#6ee7b7" opacity=".32"/>
+<circle cx="204" cy="215" r="6.5" fill="#6ee7b7" opacity=".26"/>
+<circle cx="218" cy="206" r="9" fill="#6ee7b7" opacity=".2" stroke="#6ee7b7" stroke-width="1.5"/>
+<!-- scattered dots -->
+<circle cx="102" cy="158" r="3"   fill="#34d399" opacity=".35"/>
+<circle cx="192" cy="148" r="2.5" fill="#6ee7b7" opacity=".35"/>
+<circle cx="68"  cy="198" r="2"   fill="#34d399" opacity=".3"/>
+<circle cx="238" cy="258" r="2.5" fill="#6ee7b7" opacity=".3"/>
+<circle cx="152" cy="188" r="2"   fill="#34d399" opacity=".28"/>
+</svg>`;
+
   return svgs[cat] || svgs.anime;
 }
 
@@ -602,20 +671,21 @@ function buildCard(s) {
       <h3 class="card-name" title="${s.name}">${s.name}</h3>
       <p class="card-id">${s.id}</p>
       <div class="card-actions">
-        <button class="card-add-btn ${selectedIds.has(s.id) ? 'added' : ''}" data-id="${s.id}" aria-label="${selectedIds.has(s.id) ? 'Remove' : 'Add'} sticker ${s.id}">
-          ${selectedIds.has(s.id)
-            ? `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Added`
-            : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add ID`}
-        </button>
+        <div class="card-qty-ctrl" data-qty-id="${s.id}"></div>
       </div>
     </div>
   `;
 
-  /* Add / Remove ID */
-  const addBtn = article.querySelector('.card-add-btn');
-  addBtn.addEventListener('click', e => {
+  /* Render initial qty control and wire events */
+  const ctrl = article.querySelector('.card-qty-ctrl');
+  renderQtyCtrl(ctrl, s.id, getQty(s.id));
+  ctrl.addEventListener('click', e => {
     e.stopPropagation();
-    toggleId(s.id, addBtn);
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    if (btn.classList.contains('card-add-btn'))  setQty(s.id, 1);
+    if (btn.classList.contains('qty-dec'))        setQty(s.id, getQty(s.id) - 1);
+    if (btn.classList.contains('qty-inc'))        setQty(s.id, getQty(s.id) + 1);
   });
 
   return article;
@@ -720,7 +790,7 @@ searchInput.addEventListener('input', () => {
     `;
     item.addEventListener('click', () => {
       toggleId(s.id);
-      showToast(`${selectedIds.has(s.id) ? 'Added' : 'Removed'}: ${s.id}`);
+      showToast(`Selected: ${s.id}`);
       closeSearch();
     });
     searchResults.appendChild(item);
@@ -932,95 +1002,89 @@ const orderCount  = document.getElementById('orderCount');
 const clearOrder  = document.getElementById('clearOrder');
 const copyAllIds  = document.getElementById('copyAllIds');
 
-/* Toggle a sticker ID in/out of the selection */
-function toggleId(id, btn) {
-  if (selectedIds.has(id)) {
-    selectedIds.delete(id);
+/* ── Quantity helpers ── */
+function getQty(id) { return selectedQtys.get(id) ?? 0; }
+
+function setQty(id, qty) {
+  if (qty <= 0) {
+    selectedQtys.delete(id);
   } else {
-    selectedIds.add(id);
+    selectedQtys.set(id, qty);
   }
-  /* Sync every visible card button for this id */
-  document.querySelectorAll(`.card-add-btn[data-id="${id}"]`).forEach(b => syncBtn(b, selectedIds.has(id)));
+  /* Sync every visible qty control for this id */
+  document.querySelectorAll(`.card-qty-ctrl[data-qty-id="${id}"]`).forEach(ctrl => {
+    renderQtyCtrl(ctrl, id, getQty(id));
+  });
   renderOrderBar();
-  if (btn) syncBtn(btn, selectedIds.has(id));
 }
 
-/* Update a single card button's visual state */
-function syncBtn(btn, added) {
-  const plusSVG  = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
-  const checkSVG = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>`;
-  btn.classList.toggle('added', added);
-  btn.setAttribute('aria-label', `${added ? 'Remove' : 'Add'} sticker ${btn.dataset.id}`);
-  btn.innerHTML = added ? `${checkSVG} Added` : `${plusSVG} Add ID`;
+function renderQtyCtrl(el, id, qty) {
+  if (qty === 0) {
+    el.innerHTML = `<button class="card-add-btn" aria-label="Add sticker ${id} to cart">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Add to Cart
+    </button>`;
+  } else {
+    el.innerHTML = `
+      <button class="qty-dec" aria-label="Decrease quantity for ${id}">−</button>
+      <span class="qty-num" aria-live="polite">${qty}</span>
+      <button class="qty-inc" aria-label="Increase quantity for ${id}">+</button>`;
+  }
 }
 
-/* Remove one ID via chip × button */
+/* Remove one sticker entirely via chip × button */
 function removeId(id) {
-  selectedIds.delete(id);
-  document.querySelectorAll(`.card-add-btn[data-id="${id}"]`).forEach(b => syncBtn(b, false));
+  selectedQtys.delete(id);
+  document.querySelectorAll(`.card-qty-ctrl[data-qty-id="${id}"]`).forEach(ctrl => {
+    renderQtyCtrl(ctrl, id, 0);
+  });
   renderOrderBar();
 }
 
 /* Rebuild the chip list and toggle bar visibility */
 function renderOrderBar() {
-  const ids = [...selectedIds];
-  const count = ids.length;
+  const entries = [...selectedQtys.entries()];
+  const totalItems = entries.reduce((s, [, q]) => s + q, 0);
 
-  orderCount.textContent = count;
-  orderCount.classList.add('bump');
-  setTimeout(() => orderCount.classList.remove('bump'), 300);
-
-  if (count === 0) {
-    orderBar.classList.remove('open');
-    document.body.classList.remove('bar-open');
-    orderChips.innerHTML = '';
-    const totalEl = document.getElementById('orderTotal');
-    if (totalEl) totalEl.textContent = '';
-    return;
+  /* Update nav cart badge */
+  const badge = document.getElementById('cartBadge');
+  if (badge) {
+    badge.textContent = totalItems;
+    badge.dataset.empty = totalItems === 0 ? 'true' : 'false';
   }
 
-  orderBar.classList.add('open');
-  document.body.classList.add('bar-open');
+  /* Keep the old bottom bar hidden — cart drawer replaces it */
+  if (orderBar) orderBar.classList.remove('open');
+  if (orderCount) orderCount.textContent = totalItems;
 
-  /* Calculate total price */
-  const total = ids.reduce((sum, id) => {
-    const sticker = STICKERS.find(s => s.id === id);
-    return sum + (sticker?.price ?? 1);
-  }, 0);
-  const totalEl = document.getElementById('orderTotal');
-  if (totalEl) totalEl.textContent = `${total} MAD`;
-
-  orderChips.innerHTML = ids.map(id => `
-    <div class="order-chip" role="listitem">
-      <span class="order-chip-id">${id}</span>
-      <button class="order-chip-remove" data-id="${id}" aria-label="Remove ${id}" title="Remove">×</button>
-    </div>
-  `).join('');
-
-  orderChips.querySelectorAll('.order-chip-remove').forEach(btn => {
-    btn.addEventListener('click', () => removeId(btn.dataset.id));
-  });
-
-  /* Auto-scroll chips to the newest entry */
-  orderChips.scrollLeft = orderChips.scrollWidth;
+  /* Re-render cart drawer if it's currently open */
+  if (cartDrawer && cartDrawer.classList.contains('is-open')) {
+    renderCartDrawer();
+  }
 }
 
 /* Clear all */
 clearOrder.addEventListener('click', () => {
-  selectedIds.clear();
-  document.querySelectorAll('.card-add-btn.added').forEach(b => syncBtn(b, false));
+  const ids = [...selectedQtys.keys()];
+  selectedQtys.clear();
+  ids.forEach(id => {
+    document.querySelectorAll(`.card-qty-ctrl[data-qty-id="${id}"]`).forEach(ctrl => {
+      renderQtyCtrl(ctrl, id, 0);
+    });
+  });
   renderOrderBar();
 });
 
-/* Copy all IDs */
+/* Copy all IDs with quantities */
 copyAllIds.addEventListener('click', () => {
-  if (!selectedIds.size) return;
-  const ids = [...selectedIds];
-  const total = ids.reduce((sum, id) => {
+  if (!selectedQtys.size) return;
+  const entries = [...selectedQtys.entries()];
+  const total = entries.reduce((sum, [id, qty]) => {
     const sticker = STICKERS.find(s => s.id === id);
-    return sum + (sticker?.price ?? 1);
+    return sum + (sticker?.price ?? 1) * qty;
   }, 0);
-  const text = `HELLO I WANT TO ORDER:\n${ids.join(', ')}\nTotal: ${total} MAD`;
+  const lines = entries.map(([id, qty]) => `${id} × ${qty}`).join(', ');
+  const text = `HELLO I WANT TO ORDER:\n${lines}\nTotal: ${total} MAD`;
   copyToClipboard(text);
   copyAllIds.textContent = '✓ Copied!';
   setTimeout(() => {
@@ -1037,3 +1101,456 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+/* ================================================================
+   CART DRAWER
+   ================================================================ */
+const cartDrawer   = document.getElementById('cartDrawer');
+const cartOverlay  = document.getElementById('cartOverlay');
+const cartToggle   = document.getElementById('cartToggle');
+const cartClose    = document.getElementById('cartClose');
+const cartEmptyState = document.getElementById('cartEmptyState');
+const cartItemsList  = document.getElementById('cartItemsList');
+const cartFooter     = document.getElementById('cartFooter');
+const cartItemCount  = document.getElementById('cartItemCount');
+const cartTotalPrice = document.getElementById('cartTotalPrice');
+
+function openCart() {
+  cartDrawer.classList.add('is-ready');
+  requestAnimationFrame(() => cartDrawer.classList.add('is-open'));
+  cartOverlay.classList.add('open');
+  renderCartDrawer();
+  document.body.style.overflow = 'hidden';
+  cartClose.focus();
+}
+
+function closeCart() {
+  cartDrawer.classList.remove('is-open');
+  cartOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => cartDrawer.classList.remove('is-ready'), 350);
+}
+
+cartToggle.addEventListener('click', openCart);
+cartClose.addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && cartDrawer.classList.contains('is-open')) closeCart();
+});
+
+function renderCartDrawer() {
+  const entries = [...selectedQtys.entries()];
+  const totalItems = entries.reduce((s, [, q]) => s + q, 0);
+  const total = entries.reduce((sum, [id, qty]) => {
+    const sticker = STICKERS.find(s => s.id === id);
+    return sum + (sticker?.price ?? 1) * qty;
+  }, 0);
+
+  const isEmpty = entries.length === 0;
+  cartEmptyState.hidden = !isEmpty;
+  cartItemsList.hidden = isEmpty;
+  cartFooter.hidden = isEmpty;
+
+  if (isEmpty) return;
+
+  /* Update footer */
+  cartItemCount.textContent = `${totalItems} sticker${totalItems !== 1 ? 's' : ''}`;
+  cartTotalPrice.textContent = `${total} MAD`;
+
+  /* Build item rows */
+  cartItemsList.innerHTML = entries.map(([id, qty]) => {
+    const sticker = STICKERS.find(s => s.id === id);
+    const name    = sticker?.name ?? id;
+    const price   = sticker?.price ?? 1;
+    const lineTotal = price * qty;
+    const thumb   = sticker?.image
+      ? `<img src="${sticker.image}" alt="${name}" loading="lazy">`
+      : `<span aria-hidden="true">${sticker?.emoji ?? '🎨'}</span>`;
+
+    return `
+      <div class="cart-item" data-cart-id="${id}">
+        <div class="cart-item-thumb">${thumb}</div>
+        <div class="cart-item-info">
+          <p class="cart-item-name">${name}</p>
+          <p class="cart-item-id">${id}</p>
+          <p class="cart-item-price">${lineTotal} MAD</p>
+        </div>
+        <div class="cart-item-controls">
+          <button class="cart-item-dec" data-id="${id}" aria-label="Decrease ${name}">−</button>
+          <span class="cart-item-qty" aria-live="polite">${qty}</span>
+          <button class="cart-item-inc" data-id="${id}" aria-label="Increase ${name}">+</button>
+        </div>
+        <button class="cart-item-remove" data-id="${id}" aria-label="Remove ${name} from cart" title="Remove">✕</button>
+      </div>`;
+  }).join('');
+
+  /* Wire cart item buttons */
+  cartItemsList.querySelectorAll('.cart-item-dec').forEach(btn => {
+    btn.addEventListener('click', () => setQty(btn.dataset.id, getQty(btn.dataset.id) - 1));
+  });
+  cartItemsList.querySelectorAll('.cart-item-inc').forEach(btn => {
+    btn.addEventListener('click', () => setQty(btn.dataset.id, getQty(btn.dataset.id) + 1));
+  });
+  cartItemsList.querySelectorAll('.cart-item-remove').forEach(btn => {
+    btn.addEventListener('click', () => { removeId(btn.dataset.id); renderCartDrawer(); });
+  });
+}
+
+/* ================================================================
+   INSTAGRAM ORDER
+   ================================================================ */
+const igOrderBtn      = document.getElementById('igOrderBtn');
+const igModalOverlay  = document.getElementById('igModalOverlay');
+const igModal         = document.getElementById('igModal');
+const igModalClose    = document.getElementById('igModalClose');
+const igModalPreview  = document.getElementById('igModalPreview');
+
+function buildOrderMessage() {
+  const entries = [...selectedQtys.entries()];
+  const total = entries.reduce((sum, [id, qty]) => {
+    const sticker = STICKERS.find(s => s.id === id);
+    return sum + (sticker?.price ?? 1) * qty;
+  }, 0);
+
+  const lines = entries.map(([id, qty]) => {
+    const sticker = STICKERS.find(s => s.id === id);
+    const name = sticker?.name ?? id;
+    const price = (sticker?.price ?? 1) * qty;
+    return `• ${id} — ${name} × ${qty} = ${price} MAD`;
+  }).join('\n');
+
+  return `Hello! I'd like to order the following stickers from @stickerversz:\n\n${lines}\n\n💰 Total: ${total} MAD\n\nPlease confirm availability and let me know the delivery details. Thank you! 🎉`;
+}
+
+function openIgModal(message) {
+  igModalPreview.textContent = message;
+  igModal.hidden = false;
+  igModalOverlay.classList.add('open');
+  igModal.classList.add('open');
+  igModalClose.focus();
+}
+
+function closeIgModal() {
+  igModalOverlay.classList.remove('open');
+  igModal.classList.remove('open');
+  setTimeout(() => { igModal.hidden = true; }, 300);
+}
+
+igOrderBtn.addEventListener('click', () => {
+  if (!selectedQtys.size) return;
+  const message = buildOrderMessage();
+  copyToClipboard(message);
+  openIgModal(message);
+  closeCart();
+});
+
+igModalOverlay.addEventListener('click', closeIgModal);
+igModalClose.addEventListener('click', closeIgModal);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !igModal.hidden) closeIgModal();
+});
+
+/* ================================================================
+   SPECIAL OFFERS — FREE STICKER SYSTEM
+   ================================================================ */
+
+/* State: Map of id → qty chosen as free */
+const freeStickers = new Map();
+
+/* Promo tier rules */
+const PROMO_TIERS = [
+  { min: 10, max: 14, free: 1  },
+  { min: 15, max: 24, free: 3  },
+  { min: 25, max: 34, free: 5  },
+  { min: 35, max: Infinity, free: 10 },
+];
+
+function getTotalQty() {
+  return [...selectedQtys.values()].reduce((s, q) => s + q, 0);
+}
+
+function getCurrentTier(qty) {
+  return PROMO_TIERS.slice().reverse().find(t => qty >= t.min) ?? null;
+}
+
+function getNextTier(qty) {
+  return PROMO_TIERS.find(t => qty < t.min) ?? null;
+}
+
+function countFreePicked() {
+  return [...freeStickers.values()].reduce((s, q) => s + q, 0);
+}
+
+function getFreeSlots() {
+  const tier = getCurrentTier(getTotalQty());
+  return tier ? tier.free : 0;
+}
+
+/* ── Highlight active promo tier on the page banner ── */
+function syncPromoBanner() {
+  const qty = getTotalQty();
+  document.querySelectorAll('.promo-tier').forEach((el, i) => {
+    const tier = PROMO_TIERS[i];
+    el.classList.toggle('active', tier && qty >= tier.min && qty <= tier.max);
+  });
+}
+
+/* ── Render promo progress bar inside the cart ── */
+function renderCartPromo() {
+  const qty = getTotalQty();
+  const promoBar = document.getElementById('cartPromoBar');
+  const promoFill = document.getElementById('cartPromoFill');
+  const promoLabel = document.getElementById('cartPromoLabel');
+  const freeSection = document.getElementById('cartFreeSection');
+  const freeTitle = document.getElementById('cartFreeTitle');
+  const freeRow = document.getElementById('cartFreeRow');
+  const freeCountEl = document.getElementById('cartFreeCount');
+
+  if (!promoBar) return;
+
+  const currentTier = getCurrentTier(qty);
+  const nextTier = getNextTier(qty);
+  const freeSlots = getFreeSlots();
+
+  /* Progress bar — show progress to next tier, or full if at max */
+  promoBar.hidden = qty === 0;
+  if (qty > 0) {
+    let pct, label;
+    if (currentTier && !nextTier) {
+      /* Max tier reached */
+      pct = 100;
+      label = `🎉 Max offer! You get <strong>${currentTier.free} free stickers</strong>!`;
+    } else if (currentTier && nextTier) {
+      /* Between tiers — show progress to next */
+      const needed = nextTier.min - qty;
+      pct = Math.min(100, ((qty - currentTier.min) / (nextTier.min - currentTier.min)) * 100 + 60);
+      label = `You get <strong>${currentTier.free} free</strong> now! Add <em>${needed} more</em> to unlock ${nextTier.free} free stickers 🎁`;
+    } else if (nextTier) {
+      /* No tier yet */
+      const needed = nextTier.min - qty;
+      pct = Math.min(95, (qty / nextTier.min) * 100);
+      label = `Add <em>${needed} more sticker${needed > 1 ? 's' : ''}</em> to get <strong>1 free sticker</strong> 🎁`;
+    } else {
+      pct = 0; label = '';
+    }
+    if (promoFill) promoFill.style.width = pct + '%';
+    if (promoLabel) promoLabel.innerHTML = label;
+  }
+
+  /* Free sticker section */
+  if (freeSection) {
+    freeSection.hidden = freeSlots === 0;
+    if (freeSlots > 0) {
+      const picked = countFreePicked();
+      if (freeTitle) freeTitle.textContent = `You earned ${freeSlots} free sticker${freeSlots > 1 ? 's' : ''}! (${picked}/${freeSlots} chosen)`;
+      renderFreeChips();
+
+      /* Update pick button label */
+      const pickBtn = document.getElementById('cartFreePickBtn');
+      if (pickBtn) {
+        const remaining = freeSlots - picked;
+        pickBtn.textContent = remaining > 0
+          ? `+ Choose ${remaining} more free sticker${remaining > 1 ? 's' : ''}`
+          : '✏️ Change free sticker selection';
+        pickBtn.style.display = remaining === 0 && picked > 0 ? 'flex' : 'flex';
+      }
+    }
+  }
+
+  /* Free stickers row in summary */
+  if (freeRow) freeRow.hidden = freeSlots === 0;
+  if (freeCountEl) {
+    const picked = countFreePicked();
+    freeCountEl.textContent = `${picked}/${freeSlots} chosen (FREE)`;
+  }
+
+  syncPromoBanner();
+}
+
+/* Render free sticker chips inside the free section */
+function renderFreeChips() {
+  const container = document.getElementById('cartFreeItems');
+  if (!container) return;
+
+  if (freeStickers.size === 0) {
+    container.innerHTML = '<span style="font-size:.75rem;color:var(--text-3)">No stickers chosen yet — click below to pick!</span>';
+    return;
+  }
+
+  container.innerHTML = [...freeStickers.entries()].map(([id, qty]) => {
+    const s = STICKERS.find(x => x.id === id);
+    const name = s?.name ?? id;
+    const times = qty > 1 ? ` ×${qty}` : '';
+    return `<div class="cart-free-chip" data-free-id="${id}">
+      ${name}${times}
+      <button class="cart-free-chip-remove" data-free-id="${id}" aria-label="Remove ${name} from free selection">✕</button>
+    </div>`;
+  }).join('');
+
+  container.querySelectorAll('.cart-free-chip-remove').forEach(btn => {
+    btn.addEventListener('click', () => {
+      freeStickers.delete(btn.dataset.freeId);
+      renderCartDrawer();
+    });
+  });
+}
+
+/* ── Override renderCartDrawer to include promo ── */
+const _origRenderCartDrawer = renderCartDrawer;
+window.renderCartDrawer = function () {
+  _origRenderCartDrawer();
+  renderCartPromo();
+};
+
+/* Also sync the banner whenever the grid loads */
+const _origRenderGrid = renderGrid;
+window.renderGrid = function () {
+  _origRenderGrid();
+  syncPromoBanner();
+};
+
+/* Hook into setQty to sync banner live */
+const _origSetQty = setQty;
+window.setQty = function (id, qty) {
+  _origSetQty(id, qty);
+  /* If free count exceeds new slots, trim freeStickers */
+  const newSlots = getFreeSlots();
+  let overflow = countFreePicked() - newSlots;
+  if (overflow > 0) {
+    for (const [fid, fqty] of [...freeStickers.entries()].reverse()) {
+      if (overflow <= 0) break;
+      const remove = Math.min(fqty, overflow);
+      const newQty = fqty - remove;
+      if (newQty <= 0) freeStickers.delete(fid);
+      else freeStickers.set(fid, newQty);
+      overflow -= remove;
+    }
+  }
+  syncPromoBanner();
+};
+
+/* Wire "Choose free stickers" button */
+document.getElementById('cartFreePickBtn')?.addEventListener('click', openFreePicker);
+
+/* ================================================================
+   FREE STICKER PICKER MODAL
+   ================================================================ */
+const freePickerOverlay  = document.getElementById('freePickerOverlay');
+const freePickerModal    = document.getElementById('freePickerModal');
+const freePickerClose    = document.getElementById('freePickerClose');
+const freePickerConfirm  = document.getElementById('freePickerConfirm');
+const freePickerGrid     = document.getElementById('freePickerGrid');
+const freePickerSearch   = document.getElementById('freePickerSearch');
+const freePickerSubEl    = document.getElementById('freePickerSub');
+const freePickerCounter  = document.getElementById('freePickerCounter');
+const freePickedCountEl  = document.getElementById('freePickedCount');
+const freeSlotsCountEl   = document.getElementById('freeSlotsCount');
+
+function openFreePicker() {
+  freePickerModal.hidden = false;
+  freePickerOverlay.classList.add('open');
+  freePickerModal.classList.add('open');
+  freePickerSearch.value = '';
+  renderFreePickerGrid('');
+  freePickerSearch.focus();
+}
+
+function closeFreePicker() {
+  freePickerOverlay.classList.remove('open');
+  freePickerModal.classList.remove('open');
+  setTimeout(() => { freePickerModal.hidden = true; }, 300);
+  renderCartDrawer();
+}
+
+function renderFreePickerGrid(query) {
+  const slots = getFreeSlots();
+  const picked = countFreePicked();
+  const q = query.toLowerCase().trim();
+
+  if (freeSlotsCountEl) freeSlotsCountEl.textContent = slots;
+  if (freePickedCountEl) freePickedCountEl.textContent = picked;
+  if (freePickerCounter) freePickerCounter.classList.toggle('full', picked >= slots);
+  if (freePickerSubEl) {
+    const rem = slots - picked;
+    freePickerSubEl.textContent = rem > 0
+      ? `Pick ${rem} more free sticker${rem > 1 ? 's' : ''} — any from the full catalog!`
+      : `All ${slots} free sticker${slots > 1 ? 's' : ''} chosen ✓`;
+  }
+
+  const list = q
+    ? STICKERS.filter(s =>
+        s.name.toLowerCase().includes(q) ||
+        s.id.toLowerCase().includes(q) ||
+        s.category.toLowerCase().includes(q))
+    : STICKERS;
+
+  const isFull = picked >= slots;
+
+  freePickerGrid.innerHTML = list.map(s => {
+    const pickedQty = freeStickers.get(s.id) ?? 0;
+    const isPicked = pickedQty > 0;
+    const isDisabled = !isPicked && isFull;
+    const thumbHtml = s.image
+      ? `<div class="free-picker-thumb"><img src="${s.image}" alt="${s.name}" loading="lazy"></div>`
+      : ``;
+
+    return `<div class="free-picker-card ${isPicked ? 'picked' : ''} ${isDisabled ? 'disabled' : ''}"
+                 data-picker-id="${s.id}" role="button" tabindex="0"
+                 aria-pressed="${isPicked}" aria-label="${s.name} — ${s.id}${isPicked ? ' (selected)' : ''}">
+      ${thumbHtml}
+      <p class="free-picker-card-name">${s.name}</p>
+      <p class="free-picker-card-id">${s.id}</p>
+    </div>`;
+  }).join('');
+
+  /* Wire clicks */
+  freePickerGrid.querySelectorAll('.free-picker-card:not(.disabled)').forEach(card => {
+    const handler = () => {
+      const id = card.dataset.pickerId;
+      const slots = getFreeSlots();
+      const picked = countFreePicked();
+      const currentQty = freeStickers.get(id) ?? 0;
+
+      if (currentQty > 0) {
+        /* Deselect */
+        if (currentQty - 1 <= 0) freeStickers.delete(id);
+        else freeStickers.set(id, currentQty - 1);
+      } else if (picked < slots) {
+        /* Select one more */
+        freeStickers.set(id, (freeStickers.get(id) ?? 0) + 1);
+      }
+      renderFreePickerGrid(freePickerSearch.value);
+    };
+    card.addEventListener('click', handler);
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handler(); } });
+  });
+}
+
+freePickerSearch?.addEventListener('input', e => renderFreePickerGrid(e.target.value));
+freePickerClose?.addEventListener('click', closeFreePicker);
+freePickerOverlay?.addEventListener('click', closeFreePicker);
+freePickerConfirm?.addEventListener('click', closeFreePicker);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && !freePickerModal?.hidden) closeFreePicker();
+});
+
+/* ── Update order message to include free stickers ── */
+const _origBuildOrderMessage = buildOrderMessage;
+window.buildOrderMessage = function () {
+  let msg = _origBuildOrderMessage();
+  if (freeStickers.size > 0) {
+    const freeLines = [...freeStickers.entries()]
+      .map(([id, qty]) => {
+        const s = STICKERS.find(x => x.id === id);
+        const name = s?.name ?? id;
+        return `• ${id} — ${name} × ${qty} (FREE 🎁)`;
+      }).join('\n');
+    msg += `\n\n🎁 FREE stickers (offer applied):\n${freeLines}`;
+  }
+  return msg;
+};
+
+/* Initial sync on page load */
+document.addEventListener('DOMContentLoaded', () => {
+  syncPromoBanner();
+});
