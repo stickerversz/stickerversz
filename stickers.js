@@ -43,31 +43,15 @@ const STICKERS = [
   { id: 'AN-017', name: 'dr stone', category: 'anime', emoji: '🦊', image: 'images/dr stone.png', isNew: true, price: 3  },
 
   // ── K-POP ────────────────────────────────────────────────────
-  { id: 'KP-001', name: 'BTS Logo',         category: 'kpop',   emoji: '💜'               },
-  { id: 'KP-002', name: 'BLACKPINK',        category: 'kpop',   emoji: '🖤'               },
-  { id: 'KP-003', name: 'Jungkook',         category: 'kpop',   emoji: '⭐', isNew: true  },
-  { id: 'KP-004', name: 'TWICE',            category: 'kpop',   emoji: '🍭'               },
-  { id: 'KP-005', name: 'Stray Kids',       category: 'kpop',   emoji: '💫', isNew: true  },
-  { id: 'KP-006', name: 'NewJeans',         category: 'kpop',   emoji: '🐇', isNew: true  },
-  { id: 'KP-007', name: '(G)I-DLE',         category: 'kpop',   emoji: '🌹'               },
-  { id: 'KP-008', name: 'EXO Logo',         category: 'kpop',   emoji: '🌙'               },
-  { id: 'KP-009', name: 'aespa Karina',     category: 'kpop',   emoji: '🤖', isNew: true  },
-  { id: 'KP-010', name: 'SEVENTEEN',        category: 'kpop',   emoji: '💎'               },
-
+  { id: 'KP-001', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp001.png', isNew: true, price: 3  },
+  { id: 'KP-002', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp002.png', isNew: true, price: 3  },
+  { id: 'KP-003', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp003.png', isNew: true, price: 3  }, 
+  { id: 'KP-004', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp006.png', isNew: true, price: 3  }, 
+  { id: 'KP-005', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp007.png', isNew: true, price: 3  },
+ 
   // ── GAMING ───────────────────────────────────────────────────
-  { id: 'GM-001', name: 'Among Us Red',     category: 'gaming', emoji: '🔴'               },
-  { id: 'GM-002', name: 'Minecraft Diamond',category: 'gaming', emoji: '💎'               },
-  { id: 'GM-003', name: 'Valorant Logo',    category: 'gaming', emoji: '🎯', isNew: true  },
-  { id: 'GM-004', name: 'League of Legends',category: 'gaming', emoji: '⚔️'               },
-  { id: 'GM-005', name: 'CS2 Logo',         category: 'gaming', emoji: '💥', isNew: true  },
-  { id: 'GM-006', name: 'Pokéball',         category: 'gaming', emoji: '⚪'               },
-  { id: 'GM-007', name: 'Pac-Man',          category: 'gaming', emoji: '🟡'               },
-  { id: 'GM-008', name: 'Fortnite Llama',   category: 'gaming', emoji: '🦙'               },
-  { id: 'GM-009', name: 'Game Controller',  category: 'gaming', emoji: '🎮'               },
-  { id: 'GM-010', name: 'Zelda Triforce',   category: 'gaming', emoji: '🔺', isNew: true  },
-  { id: 'GM-011', name: 'Minecraft Creeper',category: 'gaming', emoji: '💚'               },
-  { id: 'GM-012', name: 'GTA Logo',         category: 'gaming', emoji: '🌃', isNew: true  },
-
+   { id: 'GA-001', name: 'YOSHI', category: 'gaming', emoji: '🦊', image: 'images/g001.png', isNew: true, price: 3  },
+   
   // ── SPORTS ───────────────────────────────────────────────────
   { id: 'SP-001', name: 'Soccer Ball',      category: 'sports', emoji: '⚽'               },
   { id: 'SP-002', name: 'Basketball',       category: 'sports', emoji: '🏀'               },
@@ -81,17 +65,9 @@ const STICKERS = [
   { id: 'SP-010', name: 'Manchester United',category: 'sports', emoji: '👹'               },
 
   // ── MOVIES ───────────────────────────────────────────────────
-  { id: 'MV-001', name: 'Spider-Man',       category: 'movies', emoji: '🕷️'               },
-  { id: 'MV-002', name: 'Iron Man',         category: 'movies', emoji: '🔴'               },
-  { id: 'MV-003', name: 'The Joker',        category: 'movies', emoji: '🃏', isNew: true  },
-  { id: 'MV-004', name: 'Darth Vader',      category: 'movies', emoji: '🌑'               },
-  { id: 'MV-005', name: 'Batman Logo',      category: 'movies', emoji: '🦇'               },
-  { id: 'MV-006', name: 'Avengers Logo',    category: 'movies', emoji: '⚡'               },
-  { id: 'MV-007', name: 'Thanos',           category: 'movies', emoji: '💜'               },
-  { id: 'MV-008', name: 'Venom',            category: 'movies', emoji: '🖤', isNew: true  },
-  { id: 'MV-009', name: 'Godzilla',         category: 'movies', emoji: '🦕'               },
-  { id: 'MV-010', name: 'Black Panther',    category: 'movies', emoji: '🐾'               },
-
+  { id: 'MV-001', name: 'SPIDER MAN', category: 'movies', emoji: '🦊', image: 'images/mo001.png', isNew: true, price: 3  },
+  { id: 'MV-002', name: 'SPIDER MAN', category: 'movies', emoji: '🦊', image: 'images/mo002.png', isNew: true, price: 3  },
+  { id: 'MV-003', name: 'SPIDER MAN', category: 'movies', emoji: '🦊', image: 'images/mo003.png', isNew: true, price: 3  },
   // ── MUSIC ────────────────────────────────────────────────────
   { id: 'MU-001', name: 'AC DC', category: 'music', emoji: '🦊', image: 'images/ac dc.png', isNew: true, price: 3  },
   { id: 'MU-002', name: 'arctic monkeys', category: 'music', emoji: '🦊', image: 'images/arctic monkeys.png', isNew: true, price: 3  },
@@ -111,7 +87,14 @@ const STICKERS = [
   { id: 'MU-016', name: 'PINK FLOYD', category: 'music', emoji: '🦊', image: 'images/pink floyd 1.png', isNew: true, price: 3  },
   { id: 'MU-017', name: 'PINK FLOYD', category: 'music', emoji: '🦊', image: 'images/pink floyd.png', isNew: true, price: 3  },
   { id: 'MU-018', name: 'ROCK AND ROLL', category: 'music', emoji: '🦊', image: 'images/rock and roll.png', isNew: true, price: 3  },
-  { id: 'MU-019', name: 'SYSTEM OF A DOWN', category: 'music', emoji: '🦊', image: 'images/system of a down.png', isNew: true, price: 3  },
+  { id: 'MU-019', name: 'DUA LIPA WDC26', category: 'music', emoji: '🦊', image: 'images/mu001.png', isNew: true, price: 3  },
+  { id: 'MU-020', name: 'THE ROLLING STONES', category: 'music', emoji: '🦊', image: 'images/mu002.png', isNew: true, price: 3  }, 
+  { id: 'MU-021', name: 'MICHAEL JACKSON', category: 'music', emoji: '🦊', image: 'images/mu003.png', isNew: true, price: 3  }, 
+  { id: 'MU-022', name: 'MADONNA', category: 'music', emoji: '🦊', image: 'images/mu004.png', isNew: true, price: 3  }, 
+  { id: 'MU-023', name: 'MAYHEM LADY GAGA', category: 'music', emoji: '🦊', image: 'images/mu005.png', isNew: true, price: 3  }, 
+  { id: 'MU-024', name: 'I LOVE LADY GAGA', category: 'music', emoji: '🦊', image: 'images/mu006.png', isNew: true, price: 3  }, 
+  { id: 'MU-025', name: 'DUA LIPA', category: 'music', emoji: '🦊', image: 'images/mu007.png', isNew: true, price: 3  }, 
+  { id: 'MU-026', name: 'TAYLOR SWIFT', category: 'music', emoji: '🦊', image: 'images/mu008.png', isNew: true, price: 3  },
   // ── STUDY ────────────────────────────────────────────────────
   { id: 'ST-001', name: 'ANNIA DONT WANT TO STUDY', category: 'study', emoji: '🦊', image: 'images/AN001.png', isNew: true, price: 3  },
   { id: 'ST-002', name: 'A VERY TIRED STUDENT', category: 'study', emoji: '🦊', image: 'images/AN002.png', isNew: true, price: 3  },
@@ -152,16 +135,9 @@ const STICKERS = [
   { id: 'MG-008', name: 'Fullmetal Logo',   category: 'manga',  emoji: '⚗️'               },
 
   // ── CARS ─────────────────────────────────────────────────────
-  { id: 'CR-001', name: 'JDM Drift Car',    category: 'cars',   emoji: '🏎️'               },
-  { id: 'CR-002', name: 'Lamborghini',      category: 'cars',   emoji: '🐂'               },
-  { id: 'CR-003', name: 'BMW M Logo',       category: 'cars',   emoji: '💙', isNew: true  },
-  { id: 'CR-004', name: 'Ferrari Prancing', category: 'cars',   emoji: '🐎'               },
-  { id: 'CR-005', name: 'Toyota Supra',     category: 'cars',   emoji: '🚗', isNew: true  },
-  { id: 'CR-006', name: 'Nissan GT-R',      category: 'cars',   emoji: '⚡'               },
-  { id: 'CR-007', name: 'Racing Flames',    category: 'cars',   emoji: '🔥'               },
-  { id: 'CR-008', name: 'Stance Car',       category: 'cars',   emoji: '🚙'               },
-  { id: 'CR-009', name: 'Porsche Logo',     category: 'cars',   emoji: '🐴', isNew: true  },
-
+  { id: 'CR-001', name: 'BMW M', category: 'cars', emoji: '🦊', image: 'images/c001.png', isNew: true, price: 3  },
+  { id: 'CR-002', name: 'LECLERC FERRARI RADIO', category: 'cars', emoji: '🦊', image: 'images/c002.png', isNew: true, price: 3  },
+ 
   // ── MEMES ────────────────────────────────────────────────────
   { id: 'ME-001', name: 'Doge',             category: 'memes',  emoji: '🐕'               },
   { id: 'ME-002', name: 'Trollface',        category: 'memes',  emoji: '😈'               },
@@ -175,8 +151,8 @@ const STICKERS = [
   { id: 'ME-010', name: 'Brain Expanding',  category: 'memes',  emoji: '🧠'               },
 
   // ── QUOTES ───────────────────────────────────────────────────
-  { id: 'QT-028', name: 'FUNNY QUOTE', category: 'quotes', emoji: '🦊', image: 'images/q001.png', isNew: true, price: 3  },
-  { id: 'QT-028', name: 'I DONT CARE', category: 'quotes', emoji: '🦊', image: 'images/q002.png', isNew: true, price: 3  },
+  { id: 'QT-001', name: 'FUNNY QUOTE', category: 'quotes', emoji: '🦊', image: 'images/q001.png', isNew: true, price: 3  },
+  { id: 'QT-002', name: 'I DONT CARE', category: 'quotes', emoji: '🦊', image: 'images/q002.png', isNew: true, price: 3  },
 
   // ── SERIES ───────────────────────────────────────────────────
   { id: 'SR-001', name: 'Breaking Bad',      category: 'series', emoji: '⚗️', isNew: true  },
