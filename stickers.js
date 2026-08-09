@@ -175,18 +175,8 @@ const STICKERS = [
   { id: 'ME-010', name: 'Brain Expanding',  category: 'memes',  emoji: '🧠'               },
 
   // ── QUOTES ───────────────────────────────────────────────────
-  { id: 'QT-001', name: 'Stay Hungry',      category: 'quotes', emoji: '🔥', isNew: true  },
-  { id: 'QT-002', name: 'Dream Big',        category: 'quotes', emoji: '🌙'               },
-  { id: 'QT-003', name: 'Hustle Hard',      category: 'quotes', emoji: '💪', isNew: true  },
-  { id: 'QT-004', name: 'Good Vibes Only',  category: 'quotes', emoji: '☀️'               },
-  { id: 'QT-005', name: 'Level Up',         category: 'quotes', emoji: '⬆️', isNew: true  },
-  { id: 'QT-006', name: 'Born to Win',      category: 'quotes', emoji: '🏆'               },
-  { id: 'QT-007', name: 'Stay Weird',       category: 'quotes', emoji: '🌀'               },
-  { id: 'QT-008', name: 'No Pain No Gain',  category: 'quotes', emoji: '⚡'               },
-  { id: 'QT-009', name: 'Be Yourself',      category: 'quotes', emoji: '💫', isNew: true  },
-  { id: 'QT-010', name: 'Make It Happen',   category: 'quotes', emoji: '✨'               },
-  { id: 'QT-011', name: 'Stay Focused',     category: 'quotes', emoji: '🎯'               },
-  { id: 'QT-012', name: 'Embrace the Chaos',category: 'quotes', emoji: '🌪️', isNew: true  },
+  { id: 'QT-028', name: 'FUNNY QUOTE', category: 'quotes', emoji: '🦊', image: 'images/q001.png', isNew: true, price: 3  },
+  { id: 'QT-028', name: 'I DONT CARE', category: 'quotes', emoji: '🦊', image: 'images/q002.png', isNew: true, price: 3  },
 
   // ── SERIES ───────────────────────────────────────────────────
   { id: 'SR-001', name: 'Breaking Bad',      category: 'series', emoji: '⚗️', isNew: true  },
