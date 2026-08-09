@@ -43,15 +43,30 @@ const STICKERS = [
   { id: 'AN-017', name: 'dr stone', category: 'anime', emoji: '🦊', image: 'images/dr stone.png', isNew: true, price: 3  },
 
   // ── K-POP ────────────────────────────────────────────────────
-  { id: 'KP-001', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp001.png', isNew: true, price: 3  },
-  { id: 'KP-002', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp002.png', isNew: true, price: 3  },
-  { id: 'KP-003', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp003.png', isNew: true, price: 3  }, 
-  { id: 'KP-004', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp006.png', isNew: true, price: 3  }, 
-  { id: 'KP-005', name: 'YOSHI', category: 'kpop', emoji: '🦊', image: 'images/kp007.png', isNew: true, price: 3  },
+  { id: 'KP-001', name: 'BTS', category: 'kpop', emoji: '🦊', image: 'images/kp001.png', isNew: true, price: 3  },
+  { id: 'KP-002', name: 'STRAY KIDS', category: 'kpop', emoji: '🦊', image: 'images/kp002.png', isNew: true, price: 3  },
+  { id: 'KP-003', name: 'HAN JISUNG', category: 'kpop', emoji: '🦊', image: 'images/kp003.png', isNew: true, price: 3  }, 
+  { id: 'KP-004', name: 'BTS', category: 'kpop', emoji: '🦊', image: 'images/kp006.png', isNew: true, price: 3  }, 
+  { id: 'KP-005', name: 'BTS', category: 'kpop', emoji: '🦊', image: 'images/kp007.png', isNew: true, price: 3  },
  
   // ── GAMING ───────────────────────────────────────────────────
-   { id: 'GA-001', name: 'YOSHI', category: 'gaming', emoji: '🦊', image: 'images/g001.png', isNew: true, price: 3  },
-   
+  { id: 'GA-001', name: 'MARIO PLANT', category: 'gaming', emoji: '🦊', image: 'images/g002.png', isNew: true, price: 3  },
+  { id: 'GA-002', name: 'GAMERS DONT DIE', category: 'gaming', emoji: '🦊', image: 'images/g003.png', isNew: true, price: 3  },  
+  { id: 'GA-003', name: 'MUSHROOM', category: 'gaming', emoji: '🦊', image: 'images/g004.png', isNew: true, price: 3  },   
+  { id: 'GA-004', name: 'PAC MAN', category: 'gaming', emoji: '🦊', image: 'images/g005.png', isNew: true, price: 3  },  
+  { id: 'GA-005', name: 'ZOMBIE', category: 'gaming', emoji: '🦊', image: 'images/g006.png', isNew: true, price: 3  },  
+  { id: 'GA-006', name: 'CONTROLLER BUTTONS', category: 'gaming', emoji: '🦊', image: 'images/g007.png', isNew: true, price: 3  },  
+  { id: 'GA-007', name: 'YOSHI', category: 'gaming', emoji: '🦊', image: 'images/g008.png', isNew: true, price: 3  },  
+  { id: 'GA-008', name: 'GAME MODE ON', category: 'gaming', emoji: '🦊', image: 'images/g009.png', isNew: true, price: 3  },  
+  { id: 'GA-009', name: 'PLAY STATION', category: 'gaming', emoji: '🦊', image: 'images/g010.png', isNew: true, price: 3  },  
+  { id: 'GA-010', name: 'HEARTS', category: 'gaming', emoji: '🦊', image: 'images/g011.png', isNew: true, price: 3  },  
+  { id: 'GA-011', name: 'SEGA', category: 'gaming', emoji: '🦊', image: 'images/g012.png', isNew: true, price: 3  },  
+  { id: 'GA-012', name: 'MARIO STAR', category: 'gaming', emoji: '🦊', image: 'images/g013.png', isNew: true, price: 3  },  
+  { id: 'GA-013', name: 'STREET FIGHTER', category: 'gaming', emoji: '🦊', image: 'images/g014.png', isNew: true, price: 3  },  
+  { id: 'GA-014', name: 'HOLLOW KNIGHT', category: 'gaming', emoji: '🦊', image: 'images/g015.png', isNew: true, price: 3  },  
+  { id: 'GA-015', name: 'CRASH', category: 'gaming', emoji: '🦊', image: 'images/g016.png', isNew: true, price: 3  },  
+  { id: 'GA-016', name: 'GB CONTROLLER', category: 'gaming', emoji: '🦊', image: 'images/g017.png', isNew: true, price: 3  },   
+  
   // ── SPORTS ───────────────────────────────────────────────────
   { id: 'SP-001', name: 'Soccer Ball',      category: 'sports', emoji: '⚽'               },
   { id: 'SP-002', name: 'Basketball',       category: 'sports', emoji: '🏀'               },
