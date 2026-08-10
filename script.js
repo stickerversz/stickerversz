@@ -656,12 +656,13 @@ function buildCard(s) {
 
   article.innerHTML = `
     <div class="card-img-wrap">
-      <div class="card-img-bg">${getBgSVG(s.category, s.id)}</div>
+      <div class="card-img-bg"><img class="card-bg-img" src="${s.category}.svg" alt="" aria-hidden="true" loading="lazy"></div>
       ${s.image
         ? `<img class="card-img-photo" src="${s.image}" alt="${s.name}" loading="lazy">`
         : `<div class="card-img-emoji" aria-hidden="true">${s.emoji}</div>`}
       ${s.isNew ? '<div class="card-new-badge" aria-label="New sticker">New</div>' : ''}
       <div class="card-waterproof" aria-label="Waterproof sticker">💧 Waterproof</div>
+      <div class="card-qty-ctrl" data-qty-id="${s.id}"></div>
     </div>
     <div class="card-body">
       <div class="card-meta-row">
@@ -670,9 +671,6 @@ function buildCard(s) {
       </div>
       <h3 class="card-name" title="${s.name}">${s.name}</h3>
       <p class="card-id">${s.id}</p>
-      <div class="card-actions">
-        <div class="card-qty-ctrl" data-qty-id="${s.id}"></div>
-      </div>
     </div>
   `;
 
@@ -805,23 +803,7 @@ function highlight(text, q) {
 /* ================================================================
    THEME TOGGLE
    ================================================================ */
-const themeToggle = document.getElementById('themeToggle');
-
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('sv-theme', theme);
-  themeToggle.setAttribute('aria-label', theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-}
-
-/* Restore saved preference, fall back to dark */
-applyTheme(localStorage.getItem('sv-theme') || 'dark');
-
-themeToggle.addEventListener('click', () => {
-  const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-  themeToggle.style.transform = 'rotate(360deg)';
-  setTimeout(() => { themeToggle.style.transform = ''; }, 400);
-  applyTheme(next);
-});
+/* Theme is fixed to warm cream — no toggle needed */
 
 /* ================================================================
    NAV — scroll + hamburger
@@ -1020,11 +1002,13 @@ function setQty(id, qty) {
 
 function renderQtyCtrl(el, id, qty) {
   if (qty === 0) {
+    el.classList.remove('has-qty');
     el.innerHTML = `<button class="card-add-btn" aria-label="Add sticker ${id} to cart">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
       Add to Cart
     </button>`;
   } else {
+    el.classList.add('has-qty');
     el.innerHTML = `
       <button class="qty-dec" aria-label="Decrease quantity for ${id}">−</button>
       <span class="qty-num" aria-live="polite">${qty}</span>
@@ -1131,7 +1115,9 @@ function closeCart() {
   setTimeout(() => cartDrawer.classList.remove('is-ready'), 350);
 }
 
-cartToggle.addEventListener('click', openCart);
+cartToggle.addEventListener('click', () => {
+  cartDrawer.classList.contains('is-open') ? closeCart() : openCart();
+});
 cartClose.addEventListener('click', closeCart);
 cartOverlay.addEventListener('click', closeCart);
 document.addEventListener('keydown', e => {
@@ -1244,7 +1230,7 @@ igOrderBtn.addEventListener('click', () => {
   closeCart();
 });
 
-igModalOverlay.addEventListener('click', closeIgModal);
+igModalOverlay.addEventListener('click', e => { if (e.target === igModalOverlay) closeIgModal(); });
 igModalClose.addEventListener('click', closeIgModal);
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !igModal.hidden) closeIgModal();
@@ -1528,7 +1514,7 @@ function renderFreePickerGrid(query) {
 
 freePickerSearch?.addEventListener('input', e => renderFreePickerGrid(e.target.value));
 freePickerClose?.addEventListener('click', closeFreePicker);
-freePickerOverlay?.addEventListener('click', closeFreePicker);
+freePickerOverlay?.addEventListener('click', e => { if (e.target === freePickerOverlay) closeFreePicker(); });
 freePickerConfirm?.addEventListener('click', closeFreePicker);
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !freePickerModal?.hidden) closeFreePicker();
