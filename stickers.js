@@ -153,17 +153,17 @@ const STICKERS = [
   { id: 'CR-002', name: 'LECLERC FERRARI RADIO', category: 'cars', emoji: '🦊', image: 'images/c002.png', isNew: true, price: 3  },
  
   // ── MEMES ────────────────────────────────────────────────────
-  { id: 'ME-001', name: 'Doge',             category: 'memes',  emoji: '🐕'               },
-  { id: 'ME-002', name: 'Trollface',        category: 'memes',  emoji: '😈'               },
-  { id: 'ME-003', name: 'Shrek',            category: 'memes',  emoji: '🌿'               },
-  { id: 'ME-004', name: 'GigaChad',         category: 'memes',  emoji: '💪', isNew: true  },
-  { id: 'ME-005', name: 'This Is Fine',     category: 'memes',  emoji: '🔥'               },
-  { id: 'ME-006', name: 'Pepe the Frog',    category: 'memes',  emoji: '🐸'               },
-  { id: 'ME-007', name: 'Nyan Cat',         category: 'memes',  emoji: '🌈'               },
-  { id: 'ME-008', name: 'Crying Jordan',    category: 'memes',  emoji: '😭'               },
-  { id: 'ME-009', name: 'Surprised Pikachu',category: 'memes',  emoji: '😮', isNew: true  },
-  { id: 'ME-010', name: 'Brain Expanding',  category: 'memes',  emoji: '🧠'               },
-
+  { id: 'ME-001', name: '', category: 'memes', emoji: '🦊', image: 'images/me001.png', isNew: true, price: 3  },
+  { id: 'ME-002', name: '', category: 'memes', emoji: '🦊', image: 'images/me002.png', isNew: true, price: 3  },
+  { id: 'ME-003', name: '', category: 'memes', emoji: '🦊', image: 'images/me003.png', isNew: true, price: 3  },
+  { id: 'ME-004', name: '', category: 'memes', emoji: '🦊', image: 'images/me004.png', isNew: true, price: 3  },
+  { id: 'ME-005', name: '', category: 'memes', emoji: '🦊', image: 'images/me005.png', isNew: true, price: 3  },
+  { id: 'ME-006', name: '', category: 'memes', emoji: '🦊', image: 'images/me006.png', isNew: true, price: 3  },
+  { id: 'ME-007', name: '', category: 'memes', emoji: '🦊', image: 'images/me007.png', isNew: true, price: 3  },
+  { id: 'ME-008', name: '', category: 'memes', emoji: '🦊', image: 'images/me008.png', isNew: true, price: 3  },
+  { id: 'ME-009', name: '', category: 'memes', emoji: '🦊', image: 'images/me009.png', isNew: true, price: 3  },
+  { id: 'ME-010', name: '', category: 'memes', emoji: '🦊', image: 'images/me010.png', isNew: true, price: 3  },
+  
   // ── QUOTES ───────────────────────────────────────────────────
   { id: 'QT-001', name: 'FUNNY QUOTE', category: 'quotes', emoji: '🦊', image: 'images/q001.png', isNew: true, price: 3  },
   { id: 'QT-002', name: 'I DONT CARE', category: 'quotes', emoji: '🦊', image: 'images/q002.png', isNew: true, price: 3  },
