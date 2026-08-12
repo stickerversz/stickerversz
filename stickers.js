@@ -88,6 +88,16 @@ const STICKERS = [
   { id: 'MV-001', name: 'SPIDER MAN', category: 'movies', emoji: '🦊', image: 'images/mo001.png', isNew: true, price: 3  },
   { id: 'MV-002', name: 'SPIDER MAN', category: 'movies', emoji: '🦊', image: 'images/mo002.png', isNew: true, price: 3  },
   { id: 'MV-003', name: 'SPIDER MAN', category: 'movies', emoji: '🦊', image: 'images/mo003.png', isNew: true, price: 3  },
+  { id: 'MV-004', name: 'TAXI DRIVER', category: 'movies', emoji: '🦊', image: 'images/mo004.png', isNew: true, price: 3  },
+  { id: 'MV-005', name: 'MEAN GIRLS', category: 'movies', emoji: '🦊', image: 'images/mo005.png', isNew: true, price: 3  },
+  { id: 'MV-006', name: 'SUPERBAD', category: 'movies', emoji: '🦊', image: 'images/mo006.png', isNew: true, price: 3  },
+  { id: 'MV-007', name: 'THE MASK MAGNET', category: 'movies', emoji: '🦊', image: 'images/mo007.png', isNew: true, price: 3  },
+  { id: 'MV-008', name: 'SCARFACE', category: 'movies', emoji: '🦊', image: 'images/mo008.png', isNew: true, price: 3  },
+  { id: 'MV-009', name: 'SPIDER MAN', category: 'movies', emoji: '🦊', image: 'images/mo009.png', isNew: true, price: 3  },
+  { id: 'MV-010', name: 'FIGHT CLUB', category: 'movies', emoji: '🦊', image: 'images/mo010.png', isNew: true, price: 3  },
+  { id: 'MV-011', name: 'GOOD FELLAS', category: 'movies', emoji: '🦊', image: 'images/mo011.png', isNew: true, price: 3  },
+  { id: 'MV-012', name: 'THE HANGOVER', category: 'movies', emoji: '🦊', image: 'images/mo012.png', isNew: true, price: 3  },
+ 
   // ── MUSIC ────────────────────────────────────────────────────
   { id: 'MU-001', name: 'AC DC', category: 'music', emoji: '🦊', image: 'images/ac dc.png', isNew: true, price: 3  },
   { id: 'MU-002', name: 'arctic monkeys', category: 'music', emoji: '🦊', image: 'images/arctic monkeys.png', isNew: true, price: 3  },
