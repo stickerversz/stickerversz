@@ -182,6 +182,14 @@ const STICKERS = [
   // ── QUOTES ───────────────────────────────────────────────────
   { id: 'QT-001', name: 'FUNNY QUOTE', category: 'quotes', emoji: '🦊', image: 'images/q001.png', isNew: true, price: 3  },
   { id: 'QT-002', name: 'I DONT CARE', category: 'quotes', emoji: '🦊', image: 'images/q002.png', isNew: true, price: 3  },
+  { id: 'QT-003', name: 'NO RISK NO FUN', category: 'quotes', emoji: '🦊', image: 'images/q003.png', isNew: true, price: 3  },
+  { id: 'QT-004', name: '365 DAYS 365 WAYS', category: 'quotes', emoji: '🦊', image: 'images/q004.png', isNew: true, price: 3  },
+  { id: 'QT-005', name: 'SUPPORTIV', category: 'quotes', emoji: '🦊', image: 'images/q005.png', isNew: true, price: 3  },
+  { id: 'QT-006', name: 'DONT LET IDIOTS RUIN YOUR DAY', category: 'quotes', emoji: '🦊', image: 'images/q006.png', isNew: true, price: 3  },
+  { id: 'QT-007', name: 'NEVER BACK DOWN NEVER WHAT', category: 'quotes', emoji: '🦊', image: 'images/q007.png', isNew: true, price: 3  },
+  { id: 'QT-008', name: 'ITS JUST A BAD DAY', category: 'quotes', emoji: '🦊', image: 'images/q008.png', isNew: true, price: 3  },
+  { id: 'QT-009', name: 'WHATEVER IT TAKES', category: 'quotes', emoji: '🦊', image: 'images/q009.png', isNew: true, price: 3  },
+  { id: 'QT-010', name: 'YOU ARE SO HONEY', category: 'quotes', emoji: '🦊', image: 'images/q010.png', isNew: true, price: 3  },
 
   // ── SERIES ───────────────────────────────────────────────────
   { id: 'SR-001', name: 'STRANGER THINGS', category: 'series', emoji: '🦊', image: 'images/se001.png', isNew: true, price: 3  },
