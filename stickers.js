@@ -139,15 +139,17 @@ const STICKERS = [
   { id: 'ST-027', name: 'STUDY TIME', category: 'study', emoji: '🦊', image: 'images/AN027.png', isNew: true, price: 3  },
   { id: 'ST-028', name: 'HELLO KITTY', category: 'study', emoji: '🦊', image: 'images/AN028.png', isNew: true, price: 3  },
   // ── MANGA ────────────────────────────────────────────────────
-  { id: 'MG-001', name: 'Dragon Ball Logo', category: 'manga',  emoji: '🐉'               },
-  { id: 'MG-002', name: 'One Piece Logo',   category: 'manga',  emoji: '☠️'               },
-  { id: 'MG-003', name: 'Naruto Leaf',      category: 'manga',  emoji: '🍃'               },
-  { id: 'MG-004', name: 'Bleach Skull',     category: 'manga',  emoji: '💀', isNew: true  },
-  { id: 'MG-005', name: 'Jujutsu Kaisen',   category: 'manga',  emoji: '🌀', isNew: true  },
-  { id: 'MG-006', name: 'AOT Wings',        category: 'manga',  emoji: '🦅'               },
-  { id: 'MG-007', name: 'Death Note',       category: 'manga',  emoji: '📓'               },
-  { id: 'MG-008', name: 'Fullmetal Logo',   category: 'manga',  emoji: '⚗️'               },
-
+  { id: 'MG-001', name: '', category: 'manga', emoji: '🦊', image: 'images/ma001.png', isNew: true, price: 3  },
+  { id: 'MG-002', name: '', category: 'manga', emoji: '🦊', image: 'images/ma002.png', isNew: true, price: 3  },
+  { id: 'MG-003', name: '', category: 'manga', emoji: '🦊', image: 'images/ma003.png', isNew: true, price: 3  },
+  { id: 'MG-004', name: '', category: 'manga', emoji: '🦊', image: 'images/ma004.png', isNew: true, price: 3  },
+  { id: 'MG-005', name: '', category: 'manga', emoji: '🦊', image: 'images/ma005.png', isNew: true, price: 3  },
+  { id: 'MG-006', name: '', category: 'manga', emoji: '🦊', image: 'images/ma006.png', isNew: true, price: 3  },
+  { id: 'MG-007', name: '', category: 'manga', emoji: '🦊', image: 'images/ma007.png', isNew: true, price: 3  },
+  { id: 'MG-008', name: '', category: 'manga', emoji: '🦊', image: 'images/ma008.png', isNew: true, price: 3  },
+  { id: 'MG-009', name: '', category: 'manga', emoji: '🦊', image: 'images/ma009.png', isNew: true, price: 3  },
+  { id: 'MG-010', name: '', category: 'manga', emoji: '🦊', image: 'images/ma010.png', isNew: true, price: 3  },
+  
   // ── CARS ─────────────────────────────────────────────────────
   { id: 'CR-001', name: 'BMW M', category: 'cars', emoji: '🦊', image: 'images/c001.png', isNew: true, price: 3  },
   { id: 'CR-002', name: 'LECLERC FERRARI RADIO', category: 'cars', emoji: '🦊', image: 'images/c002.png', isNew: true, price: 3  },
