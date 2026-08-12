@@ -48,6 +48,11 @@ const STICKERS = [
   { id: 'KP-003', name: 'HAN JISUNG', category: 'kpop', emoji: '🦊', image: 'images/kp003.png', isNew: true, price: 3  }, 
   { id: 'KP-004', name: 'BTS', category: 'kpop', emoji: '🦊', image: 'images/kp006.png', isNew: true, price: 3  }, 
   { id: 'KP-005', name: 'BTS', category: 'kpop', emoji: '🦊', image: 'images/kp007.png', isNew: true, price: 3  },
+  { id: 'KP-005', name: 'baby monster', category: 'kpop', emoji: '🦊', image: 'images/kp008.png', isNew: true, price: 3  },
+  { id: 'KP-005', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp009.png', isNew: true, price: 3  },
+  { id: 'KP-005', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp010.png', isNew: true, price: 3  },
+  { id: 'KP-005', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp011.png', isNew: true, price: 3  },
+  { id: 'KP-005', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp012.png', isNew: true, price: 3  },
  
   // ── GAMING ───────────────────────────────────────────────────
   { id: 'GA-001', name: 'MARIO PLANT', category: 'gaming', emoji: '🦊', image: 'images/g002.png', isNew: true, price: 3  },
