@@ -159,7 +159,14 @@ const STICKERS = [
   // ── CARS ─────────────────────────────────────────────────────
   { id: 'CR-001', name: 'BMW M', category: 'cars', emoji: '🦊', image: 'images/c001.png', isNew: true, price: 3  },
   { id: 'CR-002', name: 'LECLERC FERRARI RADIO', category: 'cars', emoji: '🦊', image: 'images/c002.png', isNew: true, price: 3  },
- 
+  { id: 'CR-003', name: 'FLAGS', category: 'cars', emoji: '🦊', image: 'images/c003.png', isNew: true, price: 3  },
+  { id: 'CR-004', name: 'BOX BOX', category: 'cars', emoji: '🦊', image: 'images/c004.png', isNew: true, price: 3  },
+  { id: 'CR-005', name: 'FERRARI', category: 'cars', emoji: '🦊', image: 'images/c005.png', isNew: true, price: 3  },
+  { id: 'CR-006', name: 'MERCEDES BENZ', category: 'cars', emoji: '🦊', image: 'images/c006.png', isNew: true, price: 3  },
+  { id: 'CR-007', name: 'MUSTANG', category: 'cars', emoji: '🦊', image: 'images/c007.png', isNew: true, price: 3  },
+  { id: 'CR-008', name: 'RS', category: 'cars', emoji: '🦊', image: 'images/c008.png', isNew: true, price: 3  },
+  { id: 'CR-009', name: 'F1 FERRARI CAR', category: 'cars', emoji: '🦊', image: 'images/c009.png', isNew: true, price: 3  },
+  { id: 'CR-010', name: 'AMG', category: 'cars', emoji: '🦊', image: 'images/c010.png', isNew: true, price: 3  },
   // ── MEMES ────────────────────────────────────────────────────
   { id: 'ME-001', name: '', category: 'memes', emoji: '🦊', image: 'images/me001.png', isNew: true, price: 3  },
   { id: 'ME-002', name: '', category: 'memes', emoji: '🦊', image: 'images/me002.png', isNew: true, price: 3  },
