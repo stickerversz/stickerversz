@@ -48,11 +48,11 @@ const STICKERS = [
   { id: 'KP-003', name: 'HAN JISUNG', category: 'kpop', emoji: '🦊', image: 'images/kp003.png', isNew: true, price: 3  }, 
   { id: 'KP-004', name: 'BTS', category: 'kpop', emoji: '🦊', image: 'images/kp006.png', isNew: true, price: 3  }, 
   { id: 'KP-005', name: 'BTS', category: 'kpop', emoji: '🦊', image: 'images/kp007.png', isNew: true, price: 3  },
-  { id: 'KP-005', name: 'baby monster', category: 'kpop', emoji: '🦊', image: 'images/kp008.png', isNew: true, price: 3  },
-  { id: 'KP-005', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp009.png', isNew: true, price: 3  },
-  { id: 'KP-005', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp010.png', isNew: true, price: 3  },
-  { id: 'KP-005', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp011.png', isNew: true, price: 3  },
-  { id: 'KP-005', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp012.png', isNew: true, price: 3  },
+  { id: 'KP-006', name: 'baby monster', category: 'kpop', emoji: '🦊', image: 'images/kp008.png', isNew: true, price: 3  },
+  { id: 'KP-007', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp009.png', isNew: true, price: 3  },
+  { id: 'KP-008', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp010.png', isNew: true, price: 3  },
+  { id: 'KP-009', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp011.png', isNew: true, price: 3  },
+  { id: 'KP-010', name: '', category: 'kpop', emoji: '🦊', image: 'images/kp012.png', isNew: true, price: 3  },
  
   // ── GAMING ───────────────────────────────────────────────────
   { id: 'GA-001', name: 'MARIO PLANT', category: 'gaming', emoji: '🦊', image: 'images/g002.png', isNew: true, price: 3  },
@@ -82,6 +82,7 @@ const STICKERS = [
   { id: 'SP-007', name: 'REAL MADRID', category: 'sports', emoji: '🦊', image: 'images/sp007.png', isNew: true, price: 3  },
   { id: 'SP-008', name: 'MANCHESTER UNITED', category: 'sports', emoji: '🦊', image: 'images/sp008.png', isNew: true, price: 3  },
   { id: 'SP-009', name: 'MANCHESTER CITY', category: 'sports', emoji: '🦊', image: 'images/sp009.png', isNew: true, price: 3  },
+  { id: 'SP-010', name: 'EAGLES', category: 'sports', emoji: '🦊', image: 'images/sp010.png', isNew: true, price: 3  },
   
   // ── MOVIES ───────────────────────────────────────────────────
   { id: 'MV-001', name: 'SPIDER MAN', category: 'movies', emoji: '🦊', image: 'images/mo001.png', isNew: true, price: 3  },
