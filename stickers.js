@@ -203,8 +203,18 @@ const STICKERS = [
 
   // ── SERIES ───────────────────────────────────────────────────
   { id: 'SR-001', name: 'STRANGER THINGS', category: 'series', emoji: '🦊', image: 'images/se001.png', isNew: true, price: 3  },
- 
-  // ── K-DRAMA ──────────────────────────────────────────────────
+  { id: 'SR-002', name: 'WEDNESDAY', category: 'series', emoji: '🦊', image: 'images/se002.png', isNew: true, price: 3  },
+  { id: 'SR-003', name: 'PEAKY BLINDERS', category: 'series', emoji: '🦊', image: 'images/se003.png', isNew: true, price: 3  },
+  { id: 'SR-004', name: 'THE WALKING DEAD', category: 'series', emoji: '🦊', image: 'images/se004.png', isNew: true, price: 3  },
+  { id: 'SR-005', name: 'SQUID GAME', category: 'series', emoji: '🦊', image: 'images/se005.png', isNew: true, price: 3  },
+  { id: 'SR-006', name: 'BELLA CIAO', category: 'series', emoji: '🦊', image: 'images/se006.png', isNew: true, price: 3  },
+  { id: 'SR-007', name: 'GAME OF THRONES', category: 'series', emoji: '🦊', image: 'images/se007.png', isNew: true, price: 3  },
+  { id: 'SR-008', name: 'HOUSE OF THE DRAGON', category: 'series', emoji: '🦊', image: 'images/se008.png', isNew: true, price: 3  },
+  { id: 'SR-009', name: 'BETTER CALL SAUL', category: 'series', emoji: '🦊', image: 'images/se009.png', isNew: true, price: 3  },
+  { id: 'SR-010', name: 'BREAKING BAD ', category: 'series', emoji: '🦊', image: 'images/se010.png', isNew: true, price: 3  },
+  { id: 'SR-011', name: 'THE LAST OF US', category: 'series', emoji: '🦊', image: 'images/se011.png', isNew: true, price: 3  },
+  
+   // ── K-DRAMA ──────────────────────────────────────────────────
   { id: 'KD-001', name: 'Crash Landing on You', category: 'kdrama', emoji: '🪂', isNew: true },
   { id: 'KD-002', name: 'Goblin',            category: 'kdrama', emoji: '🕯️', isNew: true  },
   { id: 'KD-003', name: 'Itaewon Class',     category: 'kdrama', emoji: '🍺'               },
