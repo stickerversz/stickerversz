@@ -215,17 +215,17 @@ const STICKERS = [
   { id: 'SR-011', name: 'THE LAST OF US', category: 'series', emoji: '🦊', image: 'images/se011.png', isNew: true, price: 3  },
   
    // ── K-DRAMA ──────────────────────────────────────────────────
-  { id: 'KD-001', name: 'Crash Landing on You', category: 'kdrama', emoji: '🪂', isNew: true },
-  { id: 'KD-002', name: 'Goblin',            category: 'kdrama', emoji: '🕯️', isNew: true  },
-  { id: 'KD-003', name: 'Itaewon Class',     category: 'kdrama', emoji: '🍺'               },
-  { id: 'KD-004', name: 'Vincenzo',          category: 'kdrama', emoji: '🌹', isNew: true  },
-  { id: 'KD-005', name: 'The Glory',         category: 'kdrama', emoji: '✨', isNew: true  },
-  { id: 'KD-006', name: 'Business Proposal', category: 'kdrama', emoji: '💼'               },
-  { id: 'KD-007', name: 'Twenty Five Twenty One', category: 'kdrama', emoji: '🤸'          },
-  { id: 'KD-008', name: 'My Love From the Star', category: 'kdrama', emoji: '⭐', isNew: true },
-  { id: 'KD-009', name: 'Strong Woman Do Bong-soon', category: 'kdrama', emoji: '💪'       },
-  { id: 'KD-010', name: 'Extraordinary Woo', category: 'kdrama', emoji: '🐳', isNew: true  },
-
+  { id: 'KD-001', name: 'WELCOME TO WAIKIKI', category: 'kdrama', emoji: '🦊', image: 'images/kd001.png', isNew: true, price: 3  },
+  { id: 'KD-002', name: 'BUSINESS PROPOSAL', category: 'kdrama', emoji: '🦊', image: 'images/kd002.png', isNew: true, price: 3  },
+  { id: 'KD-003', name: 'LOVELY RUNNER', category: 'kdrama', emoji: '🦊', image: 'images/kd003.png', isNew: true, price: 3  },
+  { id: 'KD-004', name: 'DRAMA QUEEN', category: 'kdrama', emoji: '🦊', image: 'images/kd004.png', isNew: true, price: 3  },
+  { id: 'KD-005', name: 'WEAK HERO', category: 'kdrama', emoji: '🦊', image: 'images/kd005.png', isNew: true, price: 3  },
+  { id: 'KD-006', name: 'ALL OF US ARE DEAD', category: 'kdrama', emoji: '🦊', image: 'images/kd006.png', isNew: true, price: 3  },
+  { id: 'KD-007', name: 'WAR IN LIFE', category: 'kdrama', emoji: '🦊', image: 'images/kd007.png', isNew: true, price: 3  },
+  { id: 'KD-008', name: 'TRUE BEAUTY', category: 'kdrama', emoji: '🦊', image: 'images/kd008.png', isNew: true, price: 3  },
+  { id: 'KD-009', name: 'VINCENZO', category: 'kdrama', emoji: '🦊', image: 'images/kd009.png', isNew: true, price: 3  },
+  { id: 'KD-010', name: 'MY DEMON', category: 'kdrama', emoji: '🦊', image: 'images/kd010.png', isNew: true, price: 3  },
+  
   // ── CARTOON ──────────────────────────────────────────────────
   { id: 'CT-001', name: 'GUMBALL', category: 'cartoon', emoji: '🦊', image: 'images/ca001.png', isNew: true, price: 3  },
   { id: 'CT-002', name: 'BIMO', category: 'cartoon', emoji: '🦊', image: 'images/ca002.png', isNew: true, price: 3  },
