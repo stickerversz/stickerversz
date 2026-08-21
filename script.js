@@ -48,9 +48,6 @@ const searchInput     = document.getElementById('searchInput');
 const searchClose     = document.getElementById('searchClose');
 const searchResults   = document.getElementById('searchResults');
 const searchEmpty     = document.getElementById('searchEmpty');
-const floatIgBtn      = document.getElementById('floatIgBtn');
-const floatIgMenu     = document.getElementById('floatIgMenu');
-const copyUsername    = document.getElementById('copyUsername');
 const toast           = document.getElementById('toast');
 
 /* ================================================================
@@ -842,23 +839,6 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.35 });
 sections.forEach(s => io.observe(s));
 
-/* ================================================================
-   FLOATING INSTAGRAM BUTTON
-   ================================================================ */
-floatIgBtn.addEventListener('click', () => {
-  const open = floatIgMenu.classList.toggle('open');
-  floatIgBtn.setAttribute('aria-expanded', open);
-});
-document.addEventListener('click', e => {
-  if (!e.target.closest('.float-ig')) {
-    floatIgMenu.classList.remove('open');
-    floatIgBtn.setAttribute('aria-expanded','false');
-  }
-});
-copyUsername.addEventListener('click', () => {
-  copyToClipboard('@stickerversz');
-  floatIgMenu.classList.remove('open');
-});
 
 /* ================================================================
    CLIPBOARD UTILITY
@@ -1082,17 +1062,33 @@ copyAllIds.addEventListener('click', () => {
    ================================================================ */
 async function init() {
   try {
-    const res = await fetch('/api/stickers');
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/products?status=neq.coming_soon&select=*&order=created_at.desc`,
+      { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
+    );
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
-        /* Replace static array with live database data */
         STICKERS.length = 0;
-        data.forEach(s => STICKERS.push(s));
+        data.forEach(p => STICKERS.push({
+          id: p.sticker_id,
+          name: p.name,
+          category: p.category_slug,
+          price: p.price,
+          currency: p.currency,
+          emoji: p.emoji || '✨',
+          image: p.image || null,
+          waterproof: p.waterproof,
+          isNew: p.is_new,
+          isBestSeller: p.is_best_seller,
+          isFeatured: p.is_featured,
+          stock: p.stock,
+          status: p.status,
+        }));
       }
     }
   } catch {
-    /* Server not running — static stickers.js array is used as-is */
+    /* Supabase unreachable — static stickers.js array is used as-is */
   }
   renderGrid();
   observeImages();
@@ -1197,55 +1193,14 @@ function renderCartDrawer() {
 }
 
 /* ================================================================
-   INSTAGRAM ORDER
+   CHECKOUT TRIGGER
    ================================================================ */
-const igOrderBtn      = document.getElementById('igOrderBtn');
-const igModalOverlay  = document.getElementById('igModalOverlay');
-const igModal         = document.getElementById('igModal');
-const igModalClose    = document.getElementById('igModalClose');
-const igModalPreview  = document.getElementById('igModalPreview');
-
-function buildOrderMessage() {
-  const entries = [...selectedQtys.entries()];
-  const total = entries.reduce((sum, [id, qty]) => {
-    const sticker = STICKERS.find(s => s.id === id);
-    return sum + (sticker?.price ?? 1) * qty;
-  }, 0);
-
-  const lines = entries.map(([id, qty]) => {
-    const sticker = STICKERS.find(s => s.id === id);
-    const name = sticker?.name ?? id;
-    const price = (sticker?.price ?? 1) * qty;
-    return `• ${id} — ${name} × ${qty} = ${price} MAD`;
-  }).join('\n');
-
-  return `Hello! I'd like to order the following stickers from @stickerversz:\n\n${lines}\n\n💰 Total: ${total} MAD\n\nPlease confirm availability and let me know the delivery details. Thank you! 🎉`;
-}
-
-function openIgModal(message) {
-  igModalPreview.textContent = message;
-  igModal.hidden = false;
-  igModalOverlay.classList.add('open');
-  igModal.classList.add('open');
-  igModalClose.focus();
-}
-
-function closeIgModal() {
-  igModalOverlay.classList.remove('open');
-  igModal.classList.remove('open');
-  setTimeout(() => { igModal.hidden = true; }, 300);
-}
+const igOrderBtn = document.getElementById('igOrderBtn');
 
 igOrderBtn.addEventListener('click', () => {
   if (!selectedQtys.size) return;
   closeCart();
   openCheckout();
-});
-
-igModalOverlay.addEventListener('click', e => { if (e.target === igModalOverlay) closeIgModal(); });
-igModalClose.addEventListener('click', closeIgModal);
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && !igModal.hidden) closeIgModal();
 });
 
 /* ================================================================
@@ -1532,21 +1487,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && !freePickerModal?.hidden) closeFreePicker();
 });
 
-/* ── Update order message to include free stickers ── */
-const _origBuildOrderMessage = buildOrderMessage;
-window.buildOrderMessage = function () {
-  let msg = _origBuildOrderMessage();
-  if (freeStickers.size > 0) {
-    const freeLines = [...freeStickers.entries()]
-      .map(([id, qty]) => {
-        const s = STICKERS.find(x => x.id === id);
-        const name = s?.name ?? id;
-        return `• ${id} — ${name} × ${qty} (FREE 🎁)`;
-      }).join('\n');
-    msg += `\n\n🎁 FREE stickers (offer applied):\n${freeLines}`;
-  }
-  return msg;
-};
 
 /* Initial sync on page load */
 document.addEventListener('DOMContentLoaded', () => {
@@ -1561,12 +1501,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let deliveryZones = [];
 
-/* Load delivery zones from API on page load */
+const FALLBACK_ZONES = [
+  { city: 'Casablanca',    price: 25 },
+  { city: 'Rabat',         price: 30 },
+  { city: 'Marrakech',     price: 35 },
+  { city: 'Fès',           price: 35 },
+  { city: 'Tanger',        price: 35 },
+  { city: 'Agadir',        price: 40 },
+  { city: 'Meknès',        price: 35 },
+  { city: 'Oujda',         price: 40 },
+  { city: 'Autres villes', price: 40 },
+];
+
+/* Load delivery zones from API — falls back to hardcoded list if API unavailable */
 async function loadDeliveryZones() {
+  if (deliveryZones.length > 0) return;
   try {
-    const res = await fetch('/api/delivery');
-    if (res.ok) deliveryZones = await res.json();
-  } catch { /* offline/static — no delivery zones from server */ }
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/delivery_zones?select=city,price&order=city.asc`,
+      { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
+    );
+    if (res.ok) {
+      const data = await res.json();
+      deliveryZones = data.length > 0 ? data : FALLBACK_ZONES;
+    } else {
+      deliveryZones = FALLBACK_ZONES;
+    }
+  } catch {
+    deliveryZones = FALLBACK_ZONES;
+  }
 }
 
 /* Populate city select with zones */
@@ -1616,24 +1579,15 @@ function buildCheckoutSummary(deliveryFee) {
   `;
 }
 
-function openCheckout() {
+async function openCheckout() {
   const overlay = document.getElementById('checkoutOverlay');
-  if (!overlay) {
-    /* Server not available — fall back to original Instagram DM flow */
-    const message = buildOrderMessage();
-    copyToClipboard(message);
-    openIgModal(message);
-    return;
-  }
+  if (!overlay) return;
   overlay.hidden = false;
   overlay.removeAttribute('aria-hidden');
 
-  /* Load delivery zones if not yet loaded */
-  if (deliveryZones.length === 0) {
-    loadDeliveryZones().then(() => populateCitySelect(deliveryZones));
-  } else {
-    populateCitySelect(deliveryZones);
-  }
+  /* Ensure delivery zones are loaded, then populate the select */
+  await loadDeliveryZones();
+  populateCitySelect(deliveryZones);
 
   /* Render initial summary (no delivery fee yet) */
   const summaryEl = document.getElementById('checkoutSummary');
@@ -1697,24 +1651,20 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
   if (errEl) errEl.hidden = true;
 
   try {
-    const res = await fetch('/api/orders', {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/place_order`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ customerName: name, customerPhone: phone, customerCity: city, customerAddress: address, customerNotes: notes, items, deliveryFee }),
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` },
+      body: JSON.stringify({ p_customer_name: name, p_customer_phone: phone, p_customer_city: city, p_customer_address: address, p_customer_notes: notes || '', p_items: items, p_delivery_fee: deliveryFee }),
     });
 
     const data = await res.json();
 
-    if (res.ok && data.success) {
-      /* Build and copy the DM message */
-      const message = buildOrderMessage();
-      copyToClipboard(message);
-
+    if (res.ok && data && data.success) {
       /* Show confirmation */
       closeCheckout();
       const confOverlay = document.getElementById('orderConfirmedOverlay');
       const confNum = document.getElementById('orderConfirmedNum');
-      if (confNum) confNum.textContent = `Order #${data.orderNumber} · ${data.total} MAD`;
+      if (confNum) confNum.textContent = `Order #${data.order_number} · ${data.total} MAD`;
       if (confOverlay) { confOverlay.hidden = false; document.body.style.overflow = 'hidden'; }
 
       /* Clear cart */
@@ -1729,11 +1679,7 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
       if (errEl) { errEl.textContent = data.error || 'Failed to place order. Please try again.'; errEl.hidden = false; }
     }
   } catch {
-    /* Network error — fall back to Instagram DM */
-    closeCheckout();
-    const message = buildOrderMessage();
-    copyToClipboard(message);
-    openIgModal(message);
+    if (errEl) { errEl.textContent = 'Network error — please check your connection and try again.'; errEl.hidden = false; }
   } finally {
     submitBtn.classList.remove('loading');
     submitBtn.disabled = false;
