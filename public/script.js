@@ -1077,23 +1077,9 @@ copyAllIds.addEventListener('click', () => {
 });
 
 /* ================================================================
-   INIT — loads stickers from API when server is running,
-   falls back to the static stickers.js array otherwise
+   INIT
    ================================================================ */
-async function init() {
-  try {
-    const res = await fetch('/api/stickers');
-    if (res.ok) {
-      const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        /* Replace static array with live database data */
-        STICKERS.length = 0;
-        data.forEach(s => STICKERS.push(s));
-      }
-    }
-  } catch {
-    /* Server not running — static stickers.js array is used as-is */
-  }
+function init() {
   renderGrid();
   observeImages();
 }
@@ -1238,8 +1224,10 @@ function closeIgModal() {
 
 igOrderBtn.addEventListener('click', () => {
   if (!selectedQtys.size) return;
+  const message = buildOrderMessage();
+  copyToClipboard(message);
+  openIgModal(message);
   closeCart();
-  openCheckout();
 });
 
 igModalOverlay.addEventListener('click', e => { if (e.target === igModalOverlay) closeIgModal(); });
@@ -1552,210 +1540,3 @@ window.buildOrderMessage = function () {
 document.addEventListener('DOMContentLoaded', () => {
   syncPromoBanner();
 });
-
-/* ================================================================
-   CHECKOUT SYSTEM
-   Collects customer info, submits order to backend, shows confirmation
-   Falls back to Instagram DM flow if server is unavailable
-   ================================================================ */
-
-let deliveryZones = [];
-
-/* Load delivery zones from API on page load */
-async function loadDeliveryZones() {
-  try {
-    const res = await fetch('/api/delivery');
-    if (res.ok) deliveryZones = await res.json();
-  } catch { /* offline/static — no delivery zones from server */ }
-}
-
-/* Populate city select with zones */
-function populateCitySelect(zones) {
-  const select = document.getElementById('coCity');
-  if (!select) return;
-  select.innerHTML = '<option value="">Select your city…</option>';
-  const sorted = [...zones].sort((a, b) => a.city.localeCompare(b.city));
-  sorted.forEach(z => {
-    const opt = document.createElement('option');
-    opt.value = z.city;
-    opt.dataset.price = z.price;
-    opt.textContent = `${z.city} — ${z.price} MAD`;
-    select.appendChild(opt);
-  });
-}
-
-/* Get delivery fee for selected city */
-function getDeliveryFee() {
-  const select = document.getElementById('coCity');
-  if (!select || !select.value) return 0;
-  const opt = select.options[select.selectedIndex];
-  return parseFloat(opt?.dataset.price || 0);
-}
-
-/* Build checkout order summary HTML */
-function buildCheckoutSummary(deliveryFee) {
-  const entries = [...selectedQtys.entries()];
-  const subtotal = entries.reduce((sum, [id, qty]) => {
-    const s = STICKERS.find(x => x.id === id);
-    return sum + (s?.price ?? 3) * qty;
-  }, 0);
-  const total = subtotal + deliveryFee;
-
-  const itemRows = entries.map(([id, qty]) => {
-    const s = STICKERS.find(x => x.id === id);
-    const name = s?.name ?? id;
-    const price = (s?.price ?? 3) * qty;
-    return `<div class="checkout-summary-row"><span>${name} × ${qty}</span><span>${price} MAD</span></div>`;
-  }).join('');
-
-  return `
-    ${itemRows}
-    <div class="checkout-summary-row"><span>Subtotal</span><span>${subtotal} MAD</span></div>
-    <div class="checkout-summary-row"><span>Delivery</span><span>${deliveryFee > 0 ? deliveryFee + ' MAD' : '—'}</span></div>
-    <div class="checkout-summary-row total"><span>Total</span><span>${total} MAD</span></div>
-  `;
-}
-
-function openCheckout() {
-  const overlay = document.getElementById('checkoutOverlay');
-  if (!overlay) {
-    /* Server not available — fall back to original Instagram DM flow */
-    const message = buildOrderMessage();
-    copyToClipboard(message);
-    openIgModal(message);
-    return;
-  }
-  overlay.hidden = false;
-  overlay.removeAttribute('aria-hidden');
-
-  /* Load delivery zones if not yet loaded */
-  if (deliveryZones.length === 0) {
-    loadDeliveryZones().then(() => populateCitySelect(deliveryZones));
-  } else {
-    populateCitySelect(deliveryZones);
-  }
-
-  /* Render initial summary (no delivery fee yet) */
-  const summaryEl = document.getElementById('checkoutSummary');
-  if (summaryEl) summaryEl.innerHTML = buildCheckoutSummary(0);
-
-  /* Hide error */
-  const errEl = document.getElementById('checkoutError');
-  if (errEl) errEl.hidden = true;
-
-  document.getElementById('coName')?.focus();
-  document.body.style.overflow = 'hidden';
-}
-
-function closeCheckout() {
-  const overlay = document.getElementById('checkoutOverlay');
-  if (overlay) { overlay.hidden = true; overlay.setAttribute('aria-hidden', 'true'); }
-  document.body.style.overflow = '';
-}
-
-/* Update summary when city changes */
-document.getElementById('coCity')?.addEventListener('change', () => {
-  const summaryEl = document.getElementById('checkoutSummary');
-  if (summaryEl) summaryEl.innerHTML = buildCheckoutSummary(getDeliveryFee());
-});
-
-document.getElementById('checkoutClose')?.addEventListener('click', closeCheckout);
-document.getElementById('checkoutOverlay')?.addEventListener('click', e => {
-  if (e.target === document.getElementById('checkoutOverlay')) closeCheckout();
-});
-
-/* Handle checkout form submit */
-document.getElementById('checkoutForm')?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const errEl = document.getElementById('checkoutError');
-  const submitBtn = document.getElementById('checkoutSubmit');
-
-  const name    = document.getElementById('coName')?.value.trim();
-  const phone   = document.getElementById('coPhone')?.value.trim();
-  const city    = document.getElementById('coCity')?.value;
-  const address = document.getElementById('coAddress')?.value.trim();
-  const notes   = document.getElementById('coNotes')?.value.trim();
-
-  /* Validate */
-  let hasError = false;
-  [['coName', name], ['coPhone', phone], ['coCity', city], ['coAddress', address]].forEach(([id, val]) => {
-    const el = document.getElementById(id);
-    if (!val) { el?.classList.add('invalid'); hasError = true; }
-    else el?.classList.remove('invalid');
-  });
-
-  if (hasError) {
-    if (errEl) { errEl.textContent = 'Please fill in all required fields.'; errEl.hidden = false; }
-    return;
-  }
-
-  const deliveryFee = getDeliveryFee();
-  const items = [...selectedQtys.entries()].map(([id, quantity]) => ({ id, quantity }));
-
-  submitBtn.classList.add('loading');
-  submitBtn.disabled = true;
-  if (errEl) errEl.hidden = true;
-
-  try {
-    const res = await fetch('/api/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ customerName: name, customerPhone: phone, customerCity: city, customerAddress: address, customerNotes: notes, items, deliveryFee }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok && data.success) {
-      /* Build and copy the DM message */
-      const message = buildOrderMessage();
-      copyToClipboard(message);
-
-      /* Show confirmation */
-      closeCheckout();
-      const confOverlay = document.getElementById('orderConfirmedOverlay');
-      const confNum = document.getElementById('orderConfirmedNum');
-      if (confNum) confNum.textContent = `Order #${data.orderNumber} · ${data.total} MAD`;
-      if (confOverlay) { confOverlay.hidden = false; document.body.style.overflow = 'hidden'; }
-
-      /* Clear cart */
-      const ids = [...selectedQtys.keys()];
-      selectedQtys.clear();
-      freeStickers.clear();
-      ids.forEach(id => {
-        document.querySelectorAll(`.card-qty-ctrl[data-qty-id="${id}"]`).forEach(ctrl => renderQtyCtrl(ctrl, id, 0));
-      });
-      renderOrderBar();
-    } else {
-      if (errEl) { errEl.textContent = data.error || 'Failed to place order. Please try again.'; errEl.hidden = false; }
-    }
-  } catch {
-    /* Network error — fall back to Instagram DM */
-    closeCheckout();
-    const message = buildOrderMessage();
-    copyToClipboard(message);
-    openIgModal(message);
-  } finally {
-    submitBtn.classList.remove('loading');
-    submitBtn.disabled = false;
-  }
-});
-
-/* Close confirmed modal */
-document.getElementById('closeConfirmed')?.addEventListener('click', () => {
-  const overlay = document.getElementById('orderConfirmedOverlay');
-  if (overlay) overlay.hidden = true;
-  document.body.style.overflow = '';
-});
-
-/* Escape closes checkout */
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    const overlay = document.getElementById('checkoutOverlay');
-    if (overlay && !overlay.hidden) closeCheckout();
-    const conf = document.getElementById('orderConfirmedOverlay');
-    if (conf && !conf.hidden) { conf.hidden = true; document.body.style.overflow = ''; }
-  }
-});
-
-/* Load delivery zones early */
-document.addEventListener('DOMContentLoaded', loadDeliveryZones);
