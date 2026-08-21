@@ -21,7 +21,7 @@
 //
 // ================================================================
 
-const STICKERS = [
+let STICKERS = [
 
   // ── ANIME ────────────────────────────────────────────────────
   { id: 'AN-001', name: 'turbo granny',      category: 'anime',  emoji: '🔵', image: 'images/turbo granny.png', isNew: true, price: 3   },

@@ -1,7 +1,0 @@
-node_modules/
-stickerversz.db
-.env
-uploads/
-public/content-images/
-*.log
-.DS_Store

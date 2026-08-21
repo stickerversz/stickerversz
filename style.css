@@ -2312,3 +2312,173 @@ footer, .footer {
   body { background: #fff; color: #000; }
   .sticker-card { break-inside: avoid; border: 1px solid #ccc; }
 }
+
+/* ================================================================
+   CHECKOUT MODAL
+   ================================================================ */
+.checkout-overlay {
+  position: fixed; inset: 0; z-index: 1200;
+  background: rgba(0,0,0,.75);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(4px);
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.checkout-modal {
+  background: var(--surface-2, #18181b);
+  border: 1px solid var(--border, rgba(255,255,255,.1));
+  border-radius: 20px;
+  width: 100%; max-width: 520px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp .25s ease;
+}
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+.checkout-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border, rgba(255,255,255,.08));
+  position: sticky; top: 0;
+  background: var(--surface-2, #18181b);
+  z-index: 1;
+}
+.checkout-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.125rem; font-weight: 700;
+  color: var(--text-1, #f4f4f5);
+}
+.checkout-close {
+  background: none; border: none; cursor: pointer;
+  color: var(--text-3, #71717a);
+  padding: .25rem; border-radius: 6px;
+  transition: color .15s;
+  display: flex; align-items: center;
+}
+.checkout-close:hover { color: var(--text-1, #f4f4f5); }
+.checkout-body { padding: 1.5rem; }
+.checkout-section-label {
+  font-size: .7rem; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--text-3, #71717a);
+  margin: 1.25rem 0 .75rem;
+}
+.checkout-section-label:first-child { margin-top: 0; }
+.checkout-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+@media (max-width: 480px) { .checkout-row { grid-template-columns: 1fr; } }
+.checkout-field { display: flex; flex-direction: column; gap: .375rem; margin-bottom: .75rem; }
+.checkout-field label { font-size: .8125rem; font-weight: 500; color: var(--text-2, #a1a1aa); }
+.checkout-field input,
+.checkout-field select,
+.checkout-field textarea {
+  background: var(--surface-3, #27272a);
+  border: 1px solid var(--border, rgba(255,255,255,.1));
+  border-radius: 10px;
+  padding: .625rem .875rem;
+  color: var(--text-1, #f4f4f5);
+  font-size: .9375rem;
+  font-family: inherit;
+  transition: border-color .15s, box-shadow .15s;
+  outline: none;
+  width: 100%;
+  resize: none;
+}
+.checkout-field input:focus,
+.checkout-field select:focus,
+.checkout-field textarea:focus {
+  border-color: var(--accent, #8b5cf6);
+  box-shadow: 0 0 0 3px rgba(139,92,246,.18);
+}
+.checkout-field select option { background: #27272a; }
+.checkout-field input.invalid,
+.checkout-field select.invalid { border-color: #ef4444; }
+.checkout-summary {
+  background: var(--surface-3, #27272a);
+  border-radius: 12px; padding: 1rem;
+  margin-bottom: 1.25rem;
+  font-size: .875rem;
+}
+.checkout-summary-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: .3rem 0;
+  color: var(--text-2, #a1a1aa);
+}
+.checkout-summary-row.total {
+  border-top: 1px solid var(--border, rgba(255,255,255,.08));
+  margin-top: .5rem; padding-top: .75rem;
+  font-size: 1rem; font-weight: 700;
+  color: var(--text-1, #f4f4f5);
+}
+.checkout-error {
+  background: rgba(239,68,68,.12);
+  border: 1px solid rgba(239,68,68,.3);
+  border-radius: 8px; padding: .75rem 1rem;
+  color: #fca5a5; font-size: .875rem;
+  margin-bottom: 1rem;
+}
+.btn-checkout-submit {
+  width: 100%;
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  border: none; border-radius: 12px;
+  padding: .875rem 1.5rem;
+  color: #fff; font-size: 1rem; font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer; transition: opacity .2s;
+  display: flex; align-items: center; justify-content: center;
+  gap: .5rem;
+}
+.btn-checkout-submit:hover { opacity: .92; }
+.btn-checkout-submit:disabled { opacity: .6; cursor: not-allowed; }
+.btn-checkout-submit .checkout-spinner {
+  display: none; width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff; border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+.btn-checkout-submit.loading .checkout-submit-text { display: none; }
+.btn-checkout-submit.loading .checkout-spinner { display: block; }
+
+/* Order confirmed */
+.order-confirmed-overlay {
+  position: fixed; inset: 0; z-index: 1300;
+  background: rgba(0,0,0,.8);
+  display: flex; align-items: center; justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(6px);
+  animation: fadeIn .2s ease;
+}
+.order-confirmed-modal {
+  background: var(--surface-2, #18181b);
+  border: 1px solid rgba(139,92,246,.3);
+  border-radius: 20px; padding: 2rem;
+  text-align: center;
+  max-width: 400px; width: 100%;
+  animation: slideUp .25s ease;
+}
+.order-confirmed-check {
+  width: 56px; height: 56px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.5rem; color: #fff; font-weight: 700;
+  margin: 0 auto 1rem;
+  box-shadow: 0 8px 24px rgba(34,197,94,.3);
+}
+.order-confirmed-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem; font-weight: 700;
+  margin-bottom: .375rem;
+}
+.order-confirmed-num {
+  color: var(--accent, #8b5cf6);
+  font-weight: 600; font-size: .9375rem;
+  margin-bottom: .75rem;
+}
+.order-confirmed-sub { color: var(--text-2, #a1a1aa); font-size: .875rem; margin-bottom: 1rem; }
+.checkout-close-confirmed {
+  display: block; width: 100%; margin-top: .875rem;
+  background: none; border: 1px solid var(--border, rgba(255,255,255,.1));
+  border-radius: 10px; padding: .625rem;
+  color: var(--text-2, #a1a1aa); cursor: pointer;
+  font-size: .9rem; transition: border-color .15s;
+}
+.checkout-close-confirmed:hover { border-color: var(--text-2); color: var(--text-1); }
