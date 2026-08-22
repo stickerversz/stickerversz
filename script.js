@@ -991,10 +991,11 @@ function getQty(id) { return selectedQtys.get(id) ?? 0; }
 function setQty(id, qty) {
   const sticker = STICKERS.find(s => s.id === id);
   if (sticker?.status === 'sold_out') return;
+  const maxQty = sticker?.stock ?? Infinity;
   if (qty <= 0) {
     selectedQtys.delete(id);
   } else {
-    selectedQtys.set(id, qty);
+    selectedQtys.set(id, Math.min(qty, maxQty));
   }
   /* Sync every visible qty control for this id */
   document.querySelectorAll(`.card-qty-ctrl[data-qty-id="${id}"]`).forEach(ctrl => {
@@ -1017,11 +1018,13 @@ function renderQtyCtrl(el, id, qty) {
       Add to Cart
     </button>`;
   } else {
+    const maxQty = sticker?.stock ?? Infinity;
+    const atMax = qty >= maxQty;
     el.classList.add('has-qty');
     el.innerHTML = `
       <button class="qty-dec" aria-label="Decrease quantity for ${id}">−</button>
       <span class="qty-num" aria-live="polite">${qty}</span>
-      <button class="qty-inc" aria-label="Increase quantity for ${id}">+</button>`;
+      <button class="qty-inc" aria-label="Increase quantity for ${id}" ${atMax ? 'disabled title="Max stock reached"' : ''}>+</button>`;
   }
 }
 
