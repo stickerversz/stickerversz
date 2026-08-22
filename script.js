@@ -997,6 +997,7 @@ function setQty(id, qty) {
   if (qty <= 0) {
     selectedQtys.delete(id);
   } else {
+    if (qty > maxQty) showToast(`Only ${maxQty} left in stock!`);
     selectedQtys.set(id, Math.min(qty, maxQty));
   }
   /* Sync every visible qty control for this id */
