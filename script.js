@@ -1100,7 +1100,48 @@ copyAllIds.addEventListener('click', () => {
    INIT — loads stickers from API when server is running,
    falls back to the static stickers.js array otherwise
    ================================================================ */
+async function loadSiteContent() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/site_content?select=key,value`,
+      { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
+    if (!res.ok) return;
+    const rows = await res.json();
+    if (!Array.isArray(rows)) return;
+    const content = {};
+    rows.forEach(r => { content[r.key] = r.value; });
+
+    const set = (id, val, useHTML) => {
+      if (!val) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (useHTML) el.innerHTML = val; else el.textContent = val;
+    };
+
+    set('heroTitle',       content.hero_title,       true);
+    set('heroSub',         content.hero_subtitle,     false);
+    set('heroCTAPrimary',  content.hero_cta_primary,  false);
+    set('heroCTAFree',     content.hero_cta_free,     false);
+    set('promoBannerTitle',content.promo_title,       true);
+    set('promoBannerSub',  content.promo_subtitle,    false);
+    set('contactLocation', content.contact_location,  false);
+
+    if (content.contact_email) {
+      const emailEl = document.getElementById('contactEmail');
+      if (emailEl) { emailEl.textContent = content.contact_email; emailEl.href = `mailto:${content.contact_email}`; }
+    }
+    if (content.instagram_handle) {
+      const igEl = document.getElementById('contactInstagram');
+      if (igEl) {
+        const handle = content.instagram_handle.replace(/^@/, '');
+        igEl.textContent = `@${handle}`;
+        igEl.href = `https://instagram.com/${handle}`;
+      }
+    }
+  } catch { /* silently ignore */ }
+}
+
 async function init() {
+  loadSiteContent();
   try {
     const [prodRes, catRes] = await Promise.all([
       fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=sticker_id.asc`,
