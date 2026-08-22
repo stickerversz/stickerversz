@@ -652,6 +652,7 @@ function buildCard(s) {
   article.setAttribute('data-id', s.id);
 
   const isSoldOut = s.status === 'sold_out';
+  const isComingSoon = s.status === 'coming_soon';
   const isLowStock = s.status === 'low_stock';
 
   article.innerHTML = `
@@ -660,9 +661,10 @@ function buildCard(s) {
       ${s.image
         ? `<img class="card-img-photo" src="${s.image}" alt="${s.name}" loading="lazy">`
         : `<div class="card-img-emoji" aria-hidden="true">${s.emoji}</div>`}
-      ${s.isNew && !isSoldOut ? '<div class="card-new-badge" aria-label="New sticker">New</div>' : ''}
-      ${s.waterproof ? '<div class="card-waterproof" aria-label="Waterproof sticker">💧 Waterproof</div>' : ''}
+      ${s.isNew && !isSoldOut && !isComingSoon ? '<div class="card-new-badge" aria-label="New sticker">New</div>' : ''}
+      ${s.waterproof && !isSoldOut && !isComingSoon ? '<div class="card-waterproof" aria-label="Waterproof sticker">💧 Waterproof</div>' : ''}
       ${isSoldOut ? '<div class="card-soldout-overlay"><span class="card-soldout-label">Sold Out</span></div>' : ''}
+      ${isComingSoon ? '<div class="card-soldout-overlay"><span class="card-soldout-label" style="color:#7c3aed">Coming Soon</span></div>' : ''}
       ${isLowStock ? '<div class="card-lowstock-badge">⚡ Low Stock</div>' : ''}
       <div class="card-qty-ctrl" data-qty-id="${s.id}"></div>
     </div>
@@ -990,7 +992,7 @@ function getQty(id) { return selectedQtys.get(id) ?? 0; }
 
 function setQty(id, qty) {
   const sticker = STICKERS.find(s => s.id === id);
-  if (sticker?.status === 'sold_out') return;
+  if (sticker?.status === 'sold_out' || sticker?.status === 'coming_soon') return;
   const maxQty = sticker?.stock ?? Infinity;
   if (qty <= 0) {
     selectedQtys.delete(id);
@@ -1009,6 +1011,11 @@ function renderQtyCtrl(el, id, qty) {
   if (sticker?.status === 'sold_out') {
     el.classList.remove('has-qty');
     el.innerHTML = `<button class="card-add-btn" disabled aria-label="Sold out">Sold Out</button>`;
+    return;
+  }
+  if (sticker?.status === 'coming_soon') {
+    el.classList.remove('has-qty');
+    el.innerHTML = `<button class="card-add-btn" disabled aria-label="Coming soon">Coming Soon</button>`;
     return;
   }
   if (qty === 0) {
@@ -1095,7 +1102,7 @@ copyAllIds.addEventListener('click', () => {
 async function init() {
   try {
     const [prodRes, catRes] = await Promise.all([
-      fetch(`${SUPABASE_URL}/rest/v1/products?status=neq.coming_soon&select=*&order=created_at.desc`,
+      fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`,
         { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }),
       fetch(`${SUPABASE_URL}/rest/v1/categories?select=slug,name,icon&order=sort_order.asc`,
         { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }),
