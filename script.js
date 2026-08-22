@@ -35,7 +35,7 @@ const selectedQtys = new Map(); // id → quantity
 const stickerGrid     = document.getElementById('stickerGrid');
 const gridEmpty       = document.getElementById('gridEmpty');
 const filterCount     = document.getElementById('filterCount');
-const filterBtns      = document.querySelectorAll('.filter-btn');
+const filterBar       = document.getElementById('filterBar');
 const collectionSearch= document.getElementById('collectionSearch');
 const collectionClear = document.getElementById('collectionClear');
 const resetFilters    = document.getElementById('resetFilters');
@@ -687,19 +687,35 @@ function buildCard(s) {
 }
 
 /* ================================================================
-   FILTER BUTTONS
+   FILTER BUTTONS — event delegation so dynamic buttons work
    ================================================================ */
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
-    btn.classList.add('active');
-    btn.setAttribute('aria-pressed','true');
-    activeFilter = btn.dataset.filter;
-    searchQuery = '';
-    collectionSearch.value = '';
-    collectionClear.hidden = true;
-    renderGrid();
+function getFilterBtns() { return document.querySelectorAll('.filter-btn'); }
+
+function renderFilterButtons(categories) {
+  if (!filterBar) return;
+  filterBar.innerHTML = '<button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>';
+  categories.forEach(function(cat) {
+    var btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.filter = cat.slug;
+    btn.setAttribute('aria-pressed', 'false');
+    var icon = cat.icon ? '<img class="filter-btn-icon" src="' + cat.icon + '" alt="">' : '';
+    btn.innerHTML = icon + cat.name;
+    filterBar.appendChild(btn);
   });
+}
+
+filterBar && filterBar.addEventListener('click', function(e) {
+  var btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  getFilterBtns().forEach(function(b) { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+  btn.classList.add('active');
+  btn.setAttribute('aria-pressed','true');
+  activeFilter = btn.dataset.filter;
+  searchQuery = '';
+  collectionSearch.value = '';
+  collectionClear.hidden = true;
+  renderGrid();
 });
 
 /* ================================================================
@@ -724,9 +740,9 @@ resetFilters.addEventListener('click', () => {
   searchQuery = '';
   collectionSearch.value = '';
   collectionClear.hidden = true;
-  filterBtns.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
-  filterBtns[0].classList.add('active');
-  filterBtns[0].setAttribute('aria-pressed','true');
+  getFilterBtns().forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+  const allBtn = filterBar && filterBar.querySelector('[data-filter="all"]');
+  if (allBtn) { allBtn.classList.add('active'); allBtn.setAttribute('aria-pressed','true'); }
   renderGrid();
 });
 
@@ -1062,12 +1078,14 @@ copyAllIds.addEventListener('click', () => {
    ================================================================ */
 async function init() {
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/products?status=neq.coming_soon&select=*&order=created_at.desc`,
-      { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
-    );
-    if (res.ok) {
-      const data = await res.json();
+    const [prodRes, catRes] = await Promise.all([
+      fetch(`${SUPABASE_URL}/rest/v1/products?status=neq.coming_soon&select=*&order=created_at.desc`,
+        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }),
+      fetch(`${SUPABASE_URL}/rest/v1/categories?select=slug,name,icon&order=sort_order.asc`,
+        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }),
+    ]);
+    if (prodRes.ok) {
+      const data = await prodRes.json();
       if (Array.isArray(data) && data.length > 0) {
         STICKERS.length = 0;
         data.forEach(p => STICKERS.push({
@@ -1086,6 +1104,10 @@ async function init() {
           status: p.status,
         }));
       }
+    }
+    if (catRes.ok) {
+      const cats = await catRes.json();
+      if (Array.isArray(cats) && cats.length > 0) renderFilterButtons(cats);
     }
   } catch {
     /* Supabase unreachable — static stickers.js array is used as-is */
