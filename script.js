@@ -651,14 +651,19 @@ function buildCard(s) {
   article.setAttribute('data-category', s.category);
   article.setAttribute('data-id', s.id);
 
+  const isSoldOut = s.status === 'sold_out';
+  const isLowStock = s.status === 'low_stock';
+
   article.innerHTML = `
     <div class="card-img-wrap">
       <div class="card-img-bg"><img class="card-bg-img" src="${s.category}.svg" alt="" aria-hidden="true" loading="lazy"></div>
       ${s.image
         ? `<img class="card-img-photo" src="${s.image}" alt="${s.name}" loading="lazy">`
         : `<div class="card-img-emoji" aria-hidden="true">${s.emoji}</div>`}
-      ${s.isNew ? '<div class="card-new-badge" aria-label="New sticker">New</div>' : ''}
-      <div class="card-waterproof" aria-label="Waterproof sticker">💧 Waterproof</div>
+      ${s.isNew && !isSoldOut ? '<div class="card-new-badge" aria-label="New sticker">New</div>' : ''}
+      ${s.waterproof ? '<div class="card-waterproof" aria-label="Waterproof sticker">💧 Waterproof</div>' : ''}
+      ${isSoldOut ? '<div class="card-soldout-overlay"><span class="card-soldout-label">Sold Out</span></div>' : ''}
+      ${isLowStock ? '<div class="card-lowstock-badge">⚡ Low Stock</div>' : ''}
       <div class="card-qty-ctrl" data-qty-id="${s.id}"></div>
     </div>
     <div class="card-body">
@@ -984,6 +989,8 @@ const copyAllIds  = document.getElementById('copyAllIds');
 function getQty(id) { return selectedQtys.get(id) ?? 0; }
 
 function setQty(id, qty) {
+  const sticker = STICKERS.find(s => s.id === id);
+  if (sticker?.status === 'sold_out') return;
   if (qty <= 0) {
     selectedQtys.delete(id);
   } else {
@@ -997,6 +1004,12 @@ function setQty(id, qty) {
 }
 
 function renderQtyCtrl(el, id, qty) {
+  const sticker = STICKERS.find(s => s.id === id);
+  if (sticker?.status === 'sold_out') {
+    el.classList.remove('has-qty');
+    el.innerHTML = `<button class="card-add-btn" disabled aria-label="Sold out">Sold Out</button>`;
+    return;
+  }
   if (qty === 0) {
     el.classList.remove('has-qty');
     el.innerHTML = `<button class="card-add-btn" aria-label="Add sticker ${id} to cart">
