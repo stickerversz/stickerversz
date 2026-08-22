@@ -1108,6 +1108,31 @@ input, select { font-family: inherit; font-size: 1rem; }
   display: flex; align-items: center; gap: 3px;
 }
 
+.card-soldout-overlay {
+  position: absolute; inset: 0; z-index: 4;
+  background: rgba(0,0,0,.45);
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 12px 12px 0 0;
+}
+.card-soldout-label {
+  background: #fff; color: #e53935;
+  font-size: .7rem; font-weight: 800;
+  padding: 4px 12px; border-radius: 99px;
+  text-transform: uppercase; letter-spacing: .1em;
+  font-family: 'Poppins', sans-serif;
+}
+.card-lowstock-badge {
+  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 3;
+  background: #ff9800; color: #fff;
+  font-size: .6rem; font-weight: 700;
+  padding: 2px 8px; border-radius: 99px;
+  letter-spacing: .06em; white-space: nowrap;
+  font-family: 'Poppins', sans-serif;
+}
+.card-add-btn:disabled {
+  opacity: .45; cursor: not-allowed; pointer-events: none;
+}
+
 /* Card body */
 .card-body {
   padding: 12px 14px 14px;
