@@ -1102,7 +1102,7 @@ copyAllIds.addEventListener('click', () => {
 async function init() {
   try {
     const [prodRes, catRes] = await Promise.all([
-      fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=created_at.desc`,
+      fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=sticker_id.asc`,
         { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }),
       fetch(`${SUPABASE_URL}/rest/v1/categories?select=slug,name,icon&order=sort_order.asc`,
         { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }),
