@@ -1117,7 +1117,8 @@ async function loadSiteContent() {
       if (useHTML) el.innerHTML = val; else el.textContent = val;
     };
 
-    set('heroTitle',       content.hero_title,       true);
+    /* only apply hero_title if it contains HTML tags (preserves pink <em> styling) */
+    if (content.hero_title && content.hero_title.includes('<')) set('heroTitle', content.hero_title, true);
     set('heroSub',         content.hero_subtitle,     false);
     set('heroCTAPrimary',  content.hero_cta_primary,  false);
     set('heroCTAFree',     content.hero_cta_free,     false);
