@@ -657,9 +657,9 @@ function buildCard(s) {
 
   article.innerHTML = `
     <div class="card-img-wrap">
-      <div class="card-img-bg"><img class="card-bg-img" src="${s.category}.svg" alt="" aria-hidden="true" loading="lazy"></div>
+      <div class="card-img-bg"><img class="card-bg-img" src="${s.category}.svg" alt="" aria-hidden="true"></div>
       ${s.image
-        ? `<img class="card-img-photo" src="${s.image}" alt="${s.name}" loading="lazy">`
+        ? `<img class="card-img-photo" src="${s.image}" alt="${s.name}" loading="lazy" decoding="async">`
         : `<div class="card-img-emoji" aria-hidden="true">${s.emoji}</div>`}
       ${s.isNew && !isSoldOut && !isComingSoon ? '<div class="card-new-badge" aria-label="New sticker">New</div>' : ''}
       ${s.waterproof && !isSoldOut && !isComingSoon ? '<div class="card-waterproof" aria-label="Waterproof sticker">💧 Waterproof</div>' : ''}
