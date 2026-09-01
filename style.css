@@ -2416,6 +2416,39 @@ footer, .footer {
 .checkout-field select option { background: #27272a; }
 .checkout-field input.invalid,
 .checkout-field select.invalid { border-color: #ef4444; }
+
+/* City combobox */
+.city-combo { position: relative; }
+.city-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0; right: 0;
+  background: #1c1c1f;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px;
+  list-style: none;
+  margin: 0; padding: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 200;
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+}
+.city-dropdown-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5rem .75rem;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: .9rem;
+  transition: background .1s;
+}
+.city-dropdown-item:hover,
+.city-dropdown-item.highlighted {
+  background: rgba(139,92,246,.2);
+}
+.city-dropdown-item .city-name { color: var(--text-1, #f4f4f5); }
+.city-dropdown-item .city-fee  { color: var(--accent, #8b5cf6); font-size: .8rem; font-weight: 600; }
 .checkout-summary {
   background: var(--surface-3, #27272a);
   border-radius: 12px; padding: 1rem;
