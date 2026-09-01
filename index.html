@@ -573,10 +573,12 @@
             </div>
           </div>
           <div class="checkout-field">
-            <label for="coCity">City *</label>
-            <select id="coCity" required>
-              <option value="">Select your city…</option>
-            </select>
+            <label for="coCityInput">City *</label>
+            <div class="city-combo" id="cityCombo">
+              <input type="text" id="coCityInput" placeholder="Search your city…" autocomplete="off" aria-autocomplete="list" aria-controls="cityDropdown" aria-expanded="false">
+              <input type="hidden" id="coCity">
+              <ul class="city-dropdown" id="cityDropdown" role="listbox" hidden></ul>
+            </div>
           </div>
           <div class="checkout-field">
             <label for="coAddress">Delivery Address *</label>
