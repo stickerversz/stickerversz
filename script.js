@@ -1620,27 +1620,114 @@ async function loadDeliveryZones() {
   }
 }
 
-/* Populate city select with zones */
+/* ── City combobox ── */
+let _selectedCityPrice = 0;
+let _cityComboReady = false;
+
 function populateCitySelect(zones) {
-  const select = document.getElementById('coCity');
-  if (!select) return;
-  select.innerHTML = '<option value="">Select your city…</option>';
-  const sorted = [...zones].sort((a, b) => a.city.localeCompare(b.city));
-  sorted.forEach(z => {
-    const opt = document.createElement('option');
-    opt.value = z.city;
-    opt.dataset.price = z.price;
-    opt.textContent = `${z.city} — ${z.price} MAD`;
-    select.appendChild(opt);
-  });
+  if (!_cityComboReady) {
+    _initCityCombo(zones);
+    _cityComboReady = true;
+  }
+  /* Reset display each time checkout opens */
+  const input  = document.getElementById('coCityInput');
+  const hidden = document.getElementById('coCity');
+  if (input)  { input.value = ''; input.classList.remove('invalid'); }
+  if (hidden)  hidden.value = '';
+  _selectedCityPrice = 0;
 }
 
-/* Get delivery fee for selected city */
 function getDeliveryFee() {
-  const select = document.getElementById('coCity');
-  if (!select || !select.value) return 0;
-  const opt = select.options[select.selectedIndex];
-  return parseFloat(opt?.dataset.price || 0);
+  return _selectedCityPrice;
+}
+
+function _initCityCombo(zones) {
+  const input    = document.getElementById('coCityInput');
+  const hidden   = document.getElementById('coCity');
+  const dropdown = document.getElementById('cityDropdown');
+  if (!input || !hidden || !dropdown) return;
+
+  const sorted = [...zones].sort((a, b) => a.city.localeCompare(b.city));
+
+  function selectCity(zone) {
+    input.value  = `${zone.city} — ${zone.price} MAD`;
+    hidden.value = zone.city;
+    _selectedCityPrice = parseFloat(zone.price);
+    dropdown.hidden = true;
+    input.setAttribute('aria-expanded', 'false');
+    input.classList.remove('invalid');
+    const summaryEl = document.getElementById('checkoutSummary');
+    if (summaryEl) summaryEl.innerHTML = buildCheckoutSummary(_selectedCityPrice);
+  }
+
+  function renderDropdown(query) {
+    const q = query.trim().toLowerCase();
+    const matches = q
+      ? sorted.filter(z => z.city.toLowerCase().includes(q))
+      : sorted;
+
+    if (matches.length === 0) {
+      dropdown.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+      return;
+    }
+
+    dropdown.innerHTML = '';
+    matches.forEach(z => {
+      const li = document.createElement('li');
+      li.className = 'city-dropdown-item';
+      li.setAttribute('role', 'option');
+      li.innerHTML = `<span class="city-name">${z.city}</span><span class="city-fee">${z.price} MAD</span>`;
+      li.addEventListener('mousedown', e => { e.preventDefault(); selectCity(z); });
+      dropdown.appendChild(li);
+    });
+
+    dropdown.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+  }
+
+  input.addEventListener('input', () => {
+    hidden.value = '';
+    _selectedCityPrice = 0;
+    renderDropdown(input.value);
+  });
+
+  input.addEventListener('focus', () => {
+    if (!hidden.value) renderDropdown(input.value);
+  });
+
+  input.addEventListener('blur', () => {
+    setTimeout(() => { dropdown.hidden = true; input.setAttribute('aria-expanded', 'false'); }, 150);
+    if (!hidden.value) { input.value = ''; _selectedCityPrice = 0; }
+  });
+
+  input.addEventListener('keydown', e => {
+    const items = [...dropdown.querySelectorAll('.city-dropdown-item')];
+    const active = dropdown.querySelector('.city-dropdown-item.highlighted');
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const next = active ? (items[items.indexOf(active) + 1] || items[0]) : items[0];
+      items.forEach(i => i.classList.remove('highlighted'));
+      next?.classList.add('highlighted');
+      next?.scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prev = active ? (items[items.indexOf(active) - 1] || items[items.length - 1]) : items[items.length - 1];
+      items.forEach(i => i.classList.remove('highlighted'));
+      prev?.classList.add('highlighted');
+      prev?.scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (active) {
+        const cityName = active.querySelector('.city-name').textContent;
+        const zone = sorted.find(z => z.city === cityName);
+        if (zone) selectCity(zone);
+      }
+    } else if (e.key === 'Escape') {
+      dropdown.hidden = true;
+      input.setAttribute('aria-expanded', 'false');
+    }
+  });
 }
 
 /* Build checkout order summary HTML */
@@ -1695,11 +1782,7 @@ function closeCheckout() {
   document.body.style.overflow = '';
 }
 
-/* Update summary when city changes */
-document.getElementById('coCity')?.addEventListener('change', () => {
-  const summaryEl = document.getElementById('checkoutSummary');
-  if (summaryEl) summaryEl.innerHTML = buildCheckoutSummary(getDeliveryFee());
-});
+/* Summary updates are handled inside _initCityCombo via selectCity() */
 
 document.getElementById('checkoutClose')?.addEventListener('click', closeCheckout);
 document.getElementById('checkoutOverlay')?.addEventListener('click', e => {
@@ -1720,7 +1803,7 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
 
   /* Validate */
   let hasError = false;
-  [['coName', name], ['coPhone', phone], ['coCity', city], ['coAddress', address]].forEach(([id, val]) => {
+  [['coName', name], ['coPhone', phone], ['coCityInput', city], ['coAddress', address]].forEach(([id, val]) => {
     const el = document.getElementById(id);
     if (!val) { el?.classList.add('invalid'); hasError = true; }
     else el?.classList.remove('invalid');
