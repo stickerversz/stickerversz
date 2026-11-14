@@ -653,7 +653,6 @@ function buildCard(s) {
 
   const isSoldOut = s.status === 'sold_out';
   const isComingSoon = s.status === 'coming_soon';
-  const isLowStock = s.status === 'low_stock';
 
   article.innerHTML = `
     <div class="card-img-wrap">
@@ -665,7 +664,6 @@ function buildCard(s) {
       ${s.waterproof && !isSoldOut && !isComingSoon ? '<div class="card-waterproof" aria-label="Waterproof sticker">💧 Waterproof</div>' : ''}
       ${isSoldOut ? '<div class="card-soldout-overlay"><span class="card-soldout-label">Sold Out</span></div>' : ''}
       ${isComingSoon ? '<div class="card-soldout-overlay"><span class="card-soldout-label" style="color:#7c3aed">Coming Soon</span></div>' : ''}
-      ${isLowStock ? '<div class="card-lowstock-badge">⚡ Low Stock</div>' : ''}
       <div class="card-qty-ctrl" data-qty-id="${s.id}"></div>
     </div>
     <div class="card-body">
@@ -993,12 +991,10 @@ function getQty(id) { return selectedQtys.get(id) ?? 0; }
 function setQty(id, qty) {
   const sticker = STICKERS.find(s => s.id === id);
   if (sticker?.status === 'sold_out' || sticker?.status === 'coming_soon') return;
-  const maxQty = sticker?.stock ?? Infinity;
   if (qty <= 0) {
     selectedQtys.delete(id);
   } else {
-    if (qty > maxQty) showToast(`Only ${maxQty} left in stock!`);
-    selectedQtys.set(id, Math.min(qty, maxQty));
+    selectedQtys.set(id, qty);
   }
   /* Sync every visible qty control for this id */
   document.querySelectorAll(`.card-qty-ctrl[data-qty-id="${id}"]`).forEach(ctrl => {
@@ -1026,13 +1022,11 @@ function renderQtyCtrl(el, id, qty) {
       Add to Cart
     </button>`;
   } else {
-    const maxQty = sticker?.stock ?? Infinity;
-    const atMax = qty >= maxQty;
     el.classList.add('has-qty');
     el.innerHTML = `
       <button class="qty-dec" aria-label="Decrease quantity for ${id}">−</button>
       <span class="qty-num" aria-live="polite">${qty}</span>
-      <button class="qty-inc" aria-label="Increase quantity for ${id}" ${atMax ? 'disabled title="Max stock reached"' : ''}>+</button>`;
+      <button class="qty-inc" aria-label="Increase quantity for ${id}">+</button>`;
   }
 }
 

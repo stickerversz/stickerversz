@@ -1121,14 +1121,6 @@ input, select { font-family: inherit; font-size: 1rem; }
   text-transform: uppercase; letter-spacing: .1em;
   font-family: 'Poppins', sans-serif;
 }
-.card-lowstock-badge {
-  position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 3;
-  background: #ff9800; color: #fff;
-  font-size: .6rem; font-weight: 700;
-  padding: 2px 8px; border-radius: 99px;
-  letter-spacing: .06em; white-space: nowrap;
-  font-family: 'Poppins', sans-serif;
-}
 .card-add-btn:disabled {
   opacity: .45; cursor: not-allowed; pointer-events: none;
 }
