@@ -1100,6 +1100,7 @@ copyAllIds.addEventListener('click', () => {
    INIT
    ================================================================ */
 function init() {
+  renderFilterButtons(CATEGORIES);
   renderGrid();
   observeImages();
 }
@@ -1527,7 +1528,13 @@ const FALLBACK_ZONES = [
 ];
 
 async function loadDeliveryZones() {
-  if (deliveryZones.length === 0) deliveryZones = FALLBACK_ZONES;
+  if (deliveryZones.length > 0) return;
+  const exported = window.DELIVERY_ZONES;
+  const list = Array.isArray(exported) && exported.length > 0 ? exported : FALLBACK_ZONES;
+  const seen = new Set();
+  deliveryZones = list
+    .map(z => ({ city: String(z.city).trim(), price: z.price }))
+    .filter(z => { const k = z.city.toLowerCase(); if (!z.city || seen.has(k)) return false; seen.add(k); return true; });
 }
 
 /* ── City combobox ── */
