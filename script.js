@@ -1097,87 +1097,9 @@ copyAllIds.addEventListener('click', () => {
 });
 
 /* ================================================================
-   INIT — loads stickers from API when server is running,
-   falls back to the static stickers.js array otherwise
+   INIT
    ================================================================ */
-async function loadSiteContent() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/site_content?select=key,value`,
-      { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } });
-    if (!res.ok) return;
-    const rows = await res.json();
-    if (!Array.isArray(rows)) return;
-    const content = {};
-    rows.forEach(r => { content[r.key] = r.value; });
-
-    const set = (id, val, useHTML) => {
-      if (!val) return;
-      const el = document.getElementById(id);
-      if (!el) return;
-      if (useHTML) el.innerHTML = val; else el.textContent = val;
-    };
-
-    /* only apply hero_title if it contains HTML tags (preserves pink <em> styling) */
-    if (content.hero_title && content.hero_title.includes('<')) set('heroTitle', content.hero_title, true);
-    set('heroSub',         content.hero_subtitle,     false);
-    set('heroCTAPrimary',  content.hero_cta_primary,  false);
-    set('heroCTAFree',     content.hero_cta_free,     false);
-    set('promoBannerTitle',content.promo_title,       true);
-    set('promoBannerSub',  content.promo_subtitle,    false);
-    set('contactLocation', content.contact_location,  false);
-
-    if (content.contact_email) {
-      const emailEl = document.getElementById('contactEmail');
-      if (emailEl) { emailEl.textContent = content.contact_email; emailEl.href = `mailto:${content.contact_email}`; }
-    }
-    if (content.instagram_handle) {
-      const igEl = document.getElementById('contactInstagram');
-      if (igEl) {
-        const handle = content.instagram_handle.replace(/^@/, '');
-        igEl.textContent = `@${handle}`;
-        igEl.href = `https://instagram.com/${handle}`;
-      }
-    }
-  } catch { /* silently ignore */ }
-}
-
-async function init() {
-  loadSiteContent();
-  try {
-    const [prodRes, catRes] = await Promise.all([
-      fetch(`${SUPABASE_URL}/rest/v1/products?select=*&order=sticker_id.asc`,
-        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }),
-      fetch(`${SUPABASE_URL}/rest/v1/categories?select=slug,name,icon&order=sort_order.asc`,
-        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }),
-    ]);
-    if (prodRes.ok) {
-      const data = await prodRes.json();
-      if (Array.isArray(data) && data.length > 0) {
-        STICKERS.length = 0;
-        data.forEach(p => STICKERS.push({
-          id: p.sticker_id,
-          name: p.name,
-          category: p.category_slug,
-          price: p.price,
-          currency: p.currency,
-          emoji: p.emoji || '✨',
-          image: p.image || null,
-          waterproof: p.waterproof,
-          isNew: p.is_new,
-          isBestSeller: p.is_best_seller,
-          isFeatured: p.is_featured,
-          stock: p.stock,
-          status: p.status,
-        }));
-      }
-    }
-    if (catRes.ok) {
-      const cats = await catRes.json();
-      if (Array.isArray(cats) && cats.length > 0) renderFilterButtons(cats);
-    }
-  } catch {
-    /* Supabase unreachable — static stickers.js array is used as-is */
-  }
+function init() {
   renderGrid();
   observeImages();
 }
@@ -1583,9 +1505,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ================================================================
    CHECKOUT SYSTEM
-   Collects customer info, submits order to backend, shows confirmation
-   Falls back to Instagram DM flow if server is unavailable
+   Collects customer info and sends the order to the Cloudflare Worker,
+   which forwards it to the shop owner on Telegram
    ================================================================ */
+
+/* Set this to your Cloudflare Worker URL after deploying worker/worker.js */
+const ORDER_ENDPOINT = 'https://stickerversz-orders.elhajjimohammed27.workers.dev';
 
 let deliveryZones = [];
 
@@ -1601,23 +1526,8 @@ const FALLBACK_ZONES = [
   { city: 'Autres villes', price: 40 },
 ];
 
-/* Load delivery zones from API — falls back to hardcoded list if API unavailable */
 async function loadDeliveryZones() {
-  if (deliveryZones.length > 0) return;
-  try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/delivery_zones?select=city,price&order=city.asc`,
-      { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
-    );
-    if (res.ok) {
-      const data = await res.json();
-      deliveryZones = data.length > 0 ? data : FALLBACK_ZONES;
-    } else {
-      deliveryZones = FALLBACK_ZONES;
-    }
-  } catch {
-    deliveryZones = FALLBACK_ZONES;
-  }
+  if (deliveryZones.length === 0) deliveryZones = FALLBACK_ZONES;
 }
 
 /* ── City combobox ── */
@@ -1815,23 +1725,30 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
   }
 
   const deliveryFee = getDeliveryFee();
-  const items = [...selectedQtys.entries()].map(([id, quantity]) => ({ id, quantity }));
+  const items = [...selectedQtys.entries()].map(([id, quantity]) => {
+    const st = STICKERS.find(x => x.id === id);
+    return { id, name: st?.name ?? id, quantity, price: st?.price ?? 3 };
+  });
+
+  const freeItems = [...freeStickers.entries()].map(([id, quantity]) => {
+    const st = STICKERS.find(x => x.id === id);
+    return { id, name: st?.name ?? id, quantity };
+  });
 
   submitBtn.classList.add('loading');
   submitBtn.disabled = true;
   if (errEl) errEl.hidden = true;
 
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/place_order`, {
+    const res = await fetch(ORDER_ENDPOINT, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` },
-      body: JSON.stringify({ p_customer_name: name, p_customer_phone: phone, p_customer_city: city, p_customer_address: address, p_customer_notes: notes || '', p_items: items, p_delivery_fee: deliveryFee }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, city, address, notes: notes || '', items, freeItems, deliveryFee }),
     });
 
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
 
     if (res.ok && data && data.success) {
-      /* Show confirmation */
       closeCheckout();
       const confOverlay = document.getElementById('orderConfirmedOverlay');
       const confNum = document.getElementById('orderConfirmedNum');
