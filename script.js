@@ -1600,12 +1600,17 @@ function _initCityCombo(zones) {
   input.addEventListener('input', () => {
     hidden.value = '';
     _selectedCityPrice = 0;
+    const summaryEl = document.getElementById('checkoutSummary');
+    if (summaryEl) summaryEl.innerHTML = buildCheckoutSummary(0);
     renderDropdown(input.value);
   });
 
-  input.addEventListener('focus', () => {
-    if (!hidden.value) renderDropdown(input.value);
-  });
+  function openCityList() {
+    if (hidden.value) { input.select(); renderDropdown(''); }
+    else renderDropdown(input.value);
+  }
+  input.addEventListener('focus', openCityList);
+  input.addEventListener('click', openCityList);
 
   input.addEventListener('blur', () => {
     setTimeout(() => { dropdown.hidden = true; input.setAttribute('aria-expanded', 'false'); }, 150);
