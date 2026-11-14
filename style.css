@@ -2405,7 +2405,7 @@ footer, .footer {
   border-color: var(--accent, #8b5cf6);
   box-shadow: 0 0 0 3px rgba(139,92,246,.18);
 }
-.checkout-field select option { background: #27272a; }
+.checkout-field select option { background: var(--surface, #fffdf8); color: var(--text-1, #1c1510); }
 .checkout-field input.invalid,
 .checkout-field select.invalid { border-color: #ef4444; }
 
@@ -2415,15 +2415,15 @@ footer, .footer {
   position: absolute;
   top: calc(100% + 4px);
   left: 0; right: 0;
-  background: #1c1c1f;
-  border: 1px solid rgba(255,255,255,.12);
+  background: var(--surface, #fffdf8);
+  border: 1px solid var(--border-2, rgba(0,0,0,.16));
   border-radius: 10px;
   list-style: none;
   margin: 0; padding: 4px;
   max-height: 220px;
   overflow-y: auto;
   z-index: 200;
-  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+  box-shadow: 0 8px 24px rgba(0,0,0,.15);
 }
 .city-dropdown-item {
   display: flex;
@@ -2437,9 +2437,9 @@ footer, .footer {
 }
 .city-dropdown-item:hover,
 .city-dropdown-item.highlighted {
-  background: rgba(139,92,246,.2);
+  background: var(--accent-glow2, rgba(232,50,78,.1));
 }
-.city-dropdown-item .city-name { color: var(--text-1, #f4f4f5); }
+.city-dropdown-item .city-name { color: var(--text-1, #1c1510); }
 .city-dropdown-item .city-fee  { color: var(--accent, #8b5cf6); font-size: .8rem; font-weight: 600; }
 .checkout-summary {
   background: var(--surface-3, #27272a);
