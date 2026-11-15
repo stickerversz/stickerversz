@@ -2532,3 +2532,11 @@ footer, .footer {
   font-size: .9rem; transition: border-color .15s;
 }
 .checkout-close-confirmed:hover { border-color: var(--text-2); color: var(--text-1); }
+
+.sticker-grid img, #cartItemsList img, .free-picker-thumb img {
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+}

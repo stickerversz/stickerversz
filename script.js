@@ -1799,3 +1799,11 @@ document.addEventListener('keydown', e => {
 
 /* Load delivery zones early */
 document.addEventListener('DOMContentLoaded', loadDeliveryZones);
+
+/* Discourage saving sticker images (right-click, drag, long-press) */
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest('.sticker-card, #cartItemsList, .free-picker-thumb')) e.preventDefault();
+});
+document.addEventListener('dragstart', e => {
+  if (e.target.tagName === 'IMG') e.preventDefault();
+});
