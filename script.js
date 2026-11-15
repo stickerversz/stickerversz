@@ -669,7 +669,7 @@ function buildCard(s) {
     <div class="card-body">
       <div class="card-meta-row">
         <p class="card-category">${s.category}</p>
-        <p class="card-price" aria-label="Price: ${s.price ?? 1} MAD">${s.price ?? 1} MAD</p>
+        <p class="card-price" aria-label="Price: ${s.price ?? 2} MAD">${s.price ?? 2} MAD</p>
       </div>
       <h3 class="card-name" title="${s.name}">${s.name}</h3>
       <p class="card-id">${s.id}</p>
@@ -1079,7 +1079,7 @@ copyAllIds.addEventListener('click', () => {
   const entries = [...selectedQtys.entries()];
   const total = entries.reduce((sum, [id, qty]) => {
     const sticker = STICKERS.find(s => s.id === id);
-    return sum + (sticker?.price ?? 1) * qty;
+    return sum + (sticker?.price ?? 2) * qty;
   }, 0);
   const lines = entries.map(([id, qty]) => `${id} × ${qty}`).join(', ');
   const text = `HELLO I WANT TO ORDER:\n${lines}\nTotal: ${total} MAD`;
@@ -1144,7 +1144,7 @@ function renderCartDrawer() {
   const totalItems = entries.reduce((s, [, q]) => s + q, 0);
   const total = entries.reduce((sum, [id, qty]) => {
     const sticker = STICKERS.find(s => s.id === id);
-    return sum + (sticker?.price ?? 1) * qty;
+    return sum + (sticker?.price ?? 2) * qty;
   }, 0);
 
   const isEmpty = entries.length === 0;
@@ -1162,7 +1162,7 @@ function renderCartDrawer() {
   cartItemsList.innerHTML = entries.map(([id, qty]) => {
     const sticker = STICKERS.find(s => s.id === id);
     const name    = sticker?.name ?? id;
-    const price   = sticker?.price ?? 1;
+    const price   = sticker?.price ?? 2;
     const lineTotal = price * qty;
     const thumb   = sticker?.image
       ? `<img src="${sticker.image}" alt="${name}" loading="lazy">`
@@ -1651,14 +1651,14 @@ function buildCheckoutSummary(deliveryFee) {
   const entries = [...selectedQtys.entries()];
   const subtotal = entries.reduce((sum, [id, qty]) => {
     const s = STICKERS.find(x => x.id === id);
-    return sum + (s?.price ?? 3) * qty;
+    return sum + (s?.price ?? 2) * qty;
   }, 0);
   const total = subtotal + deliveryFee;
 
   const itemRows = entries.map(([id, qty]) => {
     const s = STICKERS.find(x => x.id === id);
     const name = s?.name ?? id;
-    const price = (s?.price ?? 3) * qty;
+    const price = (s?.price ?? 2) * qty;
     return `<div class="checkout-summary-row"><span>${name} × ${qty}</span><span>${price} MAD</span></div>`;
   }).join('');
 
@@ -1733,7 +1733,7 @@ document.getElementById('checkoutForm')?.addEventListener('submit', async (e) =>
   const deliveryFee = getDeliveryFee();
   const items = [...selectedQtys.entries()].map(([id, quantity]) => {
     const st = STICKERS.find(x => x.id === id);
-    return { id, name: st?.name ?? id, quantity, price: st?.price ?? 3 };
+    return { id, name: st?.name ?? id, quantity, price: st?.price ?? 2 };
   });
 
   const freeItems = [...freeStickers.entries()].map(([id, quantity]) => {
